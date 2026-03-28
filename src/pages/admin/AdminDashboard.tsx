@@ -52,7 +52,7 @@ const AdminDashboard = () => (
                 <th className="text-left p-3 font-medium text-muted-foreground hidden md:table-cell">Teacher</th>
                 <th className="text-left p-3 font-medium text-muted-foreground">Stage</th>
                 <th className="text-left p-3 font-medium text-muted-foreground">Status</th>
-                <th className="text-left p-3 font-medium text-muted-foreground hidden md:table-cell">Pgto</th>
+                <th className="text-left p-3 font-medium text-muted-foreground hidden md:table-cell">Pacote</th>
               </tr>
             </thead>
             <tbody>
