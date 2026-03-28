@@ -4,11 +4,11 @@ import { Users, DollarSign, BookOpen, TrendingUp, AlertCircle } from "lucide-rea
 import { Badge } from "@/components/ui/badge";
 
 const RECENT_STUDENTS = [
-  { id: 1, name: "João Santos", teacher: "Prof. Maria", stage: "B1", status: "Ativo", modality: "Online", pending: false },
-  { id: 2, name: "Ana Costa", teacher: "Prof. Maria", stage: "A2", status: "Ativo", modality: "Presencial", pending: true },
-  { id: 3, name: "Pedro Lima", teacher: "Prof. Carlos", stage: "B2", status: "Ativo", modality: "Online", pending: false },
-  { id: 4, name: "Mariana Souza", teacher: "Prof. Maria", stage: "A1", status: "Inativo", modality: "Online", pending: true },
-  { id: 5, name: "Lucas Ferreira", teacher: "Prof. Carlos", stage: "C1", status: "Ativo", modality: "Presencial", pending: false },
+  { id: 1, name: "João Santos", teacher: "Prof. Maria", stage: "B1", status: "Ativo", packageUsed: 5, packageTotal: 8 },
+  { id: 2, name: "Ana Costa", teacher: "Prof. Maria", stage: "A2", status: "Ativo", packageUsed: 8, packageTotal: 8 },
+  { id: 3, name: "Pedro Lima", teacher: "Prof. Carlos", stage: "B2", status: "Ativo", packageUsed: 2, packageTotal: 4 },
+  { id: 4, name: "Mariana Souza", teacher: "Prof. Maria", stage: "A1", status: "Inativo", packageUsed: 4, packageTotal: 4 },
+  { id: 5, name: "Lucas Ferreira", teacher: "Prof. Carlos", stage: "C1", status: "Ativo", packageUsed: 6, packageTotal: 8 },
 ];
 
 const REVENUE_DATA = [
