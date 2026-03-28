@@ -139,6 +139,7 @@ const AdminStudents = () => {
                   <p className="font-medium">{s.name}</p>
                   <p className="text-xs text-muted-foreground">{s.email}</p>
                 </td>
+                <td className="p-3 text-xs text-muted-foreground hidden md:table-cell">{s.location}</td>
                 <td className="p-3 text-muted-foreground hidden md:table-cell">{s.teacher}</td>
                 <td className="p-3">
                   <Badge variant="secondary" className="text-xs">{s.stage}</Badge>
