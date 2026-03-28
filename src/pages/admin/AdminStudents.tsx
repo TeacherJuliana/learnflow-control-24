@@ -159,7 +159,7 @@ const AdminStudents = () => {
             ))}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={6} className="p-8 text-center text-muted-foreground">
+                <td colSpan={7} className="p-8 text-center text-muted-foreground">
                   <Users className="w-8 h-8 mx-auto mb-2 opacity-30" />
                   <p className="text-sm">Nenhum aluno encontrado</p>
                 </td>
