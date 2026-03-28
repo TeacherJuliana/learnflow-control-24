@@ -153,8 +153,22 @@ const AdminStudents = () => {
                     {s.status}
                   </Badge>
                 </td>
-                <td className="p-3 text-muted-foreground text-xs hidden lg:table-cell">
-                  {new Date(s.startDate).toLocaleDateString("pt-BR")}
+                <td className="p-3 hidden lg:table-cell">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-medium">{s.packageUsed}/{s.packageTotal}</span>
+                    <div className="w-16 h-1.5 rounded-full bg-muted overflow-hidden">
+                      <div
+                        className={`h-full rounded-full transition-all ${s.packageUsed >= s.packageTotal ? "bg-destructive" : "bg-primary"}`}
+                        style={{ width: `${(s.packageUsed / s.packageTotal) * 100}%` }}
+                      />
+                    </div>
+                    {s.packageUsed >= s.packageTotal && (
+                      <Badge variant="destructive" className="text-[10px] px-1.5 py-0">Renovar</Badge>
+                    )}
+                  </div>
+                </td>
+                <td className="p-3 text-muted-foreground text-xs hidden xl:table-cell">
+                  {s.packageValue}
                 </td>
               </tr>
             ))}
