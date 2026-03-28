@@ -31,12 +31,12 @@ const AdminDashboard = () => (
       <StatCard label="Frequência geral" value="91%" icon={<TrendingUp className="w-4 h-4" />} trend="-1%" trendUp={false} />
     </div>
 
-    {/* Payments pending alert */}
+    {/* Package renewal alert */}
     <div className="flex items-center gap-3 p-4 rounded-lg border border-warning/30 bg-warning/5 mb-8">
       <AlertCircle className="w-5 h-5 text-warning shrink-0" />
       <div>
-        <p className="text-sm font-medium">2 pagamentos pendentes</p>
-        <p className="text-xs text-muted-foreground">Ana Costa e Mariana Souza possuem faturas em aberto</p>
+        <p className="text-sm font-medium">2 pacotes finalizados</p>
+        <p className="text-xs text-muted-foreground">Ana Costa e Mariana Souza finalizaram o pacote de aulas e precisam renovar</p>
       </div>
     </div>
 
