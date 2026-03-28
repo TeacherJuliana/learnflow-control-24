@@ -14,7 +14,7 @@ const UPCOMING_CLASS = {
 const RECENT_CLASSES = [
   { id: 1, date: "25 Mar", topic: "Unit 4 — Past Simple", teacher: "Prof. Maria", status: "Presente" },
   { id: 2, date: "22 Mar", topic: "Unit 4 — Irregular Verbs", teacher: "Prof. Maria", status: "Presente" },
-  { id: 3, date: "20 Mar", topic: "Unit 3 — Review", teacher: "Prof. Maria", status: "Ausente" },
+  { id: 3, date: "20 Mar", topic: "Unit 3 — Review", teacher: "Prof. Maria", status: "Cancelada" },
 ];
 
 const StudentDashboard = () => (
