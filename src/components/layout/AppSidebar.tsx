@@ -3,13 +3,14 @@ import { useNavigate, useLocation } from "react-router-dom";
 import {
   LayoutDashboard, Users, BookOpen, CreditCard, BarChart3,
   Calendar, ClipboardCheck, LogOut, GraduationCap, FileText,
-  Bell, Settings
+  Bell, Settings, Clock
 } from "lucide-react";
 
 const NAV_ITEMS: Record<UserRole, { label: string; path: string; icon: React.ElementType }[]> = {
   admin: [
     { label: "Dashboard", path: "/admin", icon: LayoutDashboard },
     { label: "Alunos", path: "/admin/students", icon: Users },
+    { label: "Lista de Espera", path: "/admin/waiting-list", icon: Clock },
     { label: "Teachers", path: "/admin/teachers", icon: GraduationCap },
     { label: "Financeiro", path: "/admin/finance", icon: CreditCard },
     { label: "Relatórios", path: "/admin/reports", icon: BarChart3 },

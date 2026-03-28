@@ -10,6 +10,7 @@ import StudentDashboard from "./pages/student/StudentDashboard";
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminStudents from "./pages/admin/AdminStudents";
+import AdminWaitingList from "./pages/admin/AdminWaitingList";
 import StudentMaterials from "./pages/student/StudentMaterials";
 import TeacherSchedule from "./pages/teacher/TeacherSchedule";
 
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/teacher/schedule" element={<TeacherSchedule />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/students" element={<AdminStudents />} />
+            <Route path="/admin/waiting-list" element={<AdminWaitingList />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
