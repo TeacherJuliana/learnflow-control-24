@@ -9,14 +9,14 @@ import { Users, Search, Plus, Filter } from "lucide-react";
 import { useState, useMemo } from "react";
 
 const ALL_STUDENTS = [
-  { id: 1, name: "João Santos", email: "joao@email.com", teacher: "Prof. Maria", stage: "B1", status: "Ativo", modality: "VIP", age: 25, startDate: "2024-03-01", location: "São Paulo - SP (BRT)" },
-  { id: 2, name: "Ana Costa", email: "ana@email.com", teacher: "Prof. Maria", stage: "A2", status: "Ativo", modality: "Turma", age: 30, startDate: "2024-01-15", location: "Lisboa - Portugal (WET)" },
-  { id: 3, name: "Pedro Lima", email: "pedro@email.com", teacher: "Prof. Carlos", stage: "B2", status: "Ativo", modality: "VIP", age: 22, startDate: "2023-11-20", location: "Miami - EUA (EST)" },
-  { id: 4, name: "Mariana Souza", email: "mariana@email.com", teacher: "Prof. Maria", stage: "A1", status: "Inativo", modality: "Kids", age: 28, startDate: "2024-02-10", location: "Rio de Janeiro - RJ (BRT)" },
-  { id: 5, name: "Lucas Ferreira", email: "lucas@email.com", teacher: "Prof. Carlos", stage: "C1", status: "Ativo", modality: "Turma", age: 35, startDate: "2023-09-05", location: "Toronto - Canadá (EST)" },
-  { id: 6, name: "Camila Rocha", email: "camila@email.com", teacher: "Prof. Maria", stage: "B1", status: "Ativo", modality: "Kids", age: 27, startDate: "2024-04-01", location: "Belo Horizonte - MG (BRT)" },
-  { id: 7, name: "Rafael Mendes", email: "rafael@email.com", teacher: "Prof. Carlos", stage: "A2", status: "Ativo", modality: "VIP", age: 19, startDate: "2024-05-10", location: "Dublin - Irlanda (GMT)" },
-  { id: 8, name: "Julia Almeida", email: "julia@email.com", teacher: "Prof. Maria", stage: "B2", status: "Inativo", modality: "Turma", age: 32, startDate: "2023-08-15", location: "Curitiba - PR (BRT)" },
+  { id: 1, name: "João Santos", email: "joao@email.com", teacher: "Prof. Maria", stage: "B1", status: "Ativo", modality: "VIP", age: 25, startDate: "2024-03-01", location: "São Paulo - SP (BRT)", packageTotal: 8, packageUsed: 5, packageValue: "R$680" },
+  { id: 2, name: "Ana Costa", email: "ana@email.com", teacher: "Prof. Maria", stage: "A2", status: "Ativo", modality: "Turma", age: 30, startDate: "2024-01-15", location: "Lisboa - Portugal (WET)", packageTotal: 8, packageUsed: 8, packageValue: "R$560" },
+  { id: 3, name: "Pedro Lima", email: "pedro@email.com", teacher: "Prof. Carlos", stage: "B2", status: "Ativo", modality: "VIP", age: 22, startDate: "2023-11-20", location: "Miami - EUA (EST)", packageTotal: 4, packageUsed: 2, packageValue: "R$380" },
+  { id: 4, name: "Mariana Souza", email: "mariana@email.com", teacher: "Prof. Maria", stage: "A1", status: "Inativo", modality: "Kids", age: 28, startDate: "2024-02-10", location: "Rio de Janeiro - RJ (BRT)", packageTotal: 4, packageUsed: 4, packageValue: "R$320" },
+  { id: 5, name: "Lucas Ferreira", email: "lucas@email.com", teacher: "Prof. Carlos", stage: "C1", status: "Ativo", modality: "Turma", age: 35, startDate: "2023-09-05", location: "Toronto - Canadá (EST)", packageTotal: 8, packageUsed: 6, packageValue: "R$560" },
+  { id: 6, name: "Camila Rocha", email: "camila@email.com", teacher: "Prof. Maria", stage: "B1", status: "Ativo", modality: "Kids", age: 27, startDate: "2024-04-01", location: "Belo Horizonte - MG (BRT)", packageTotal: 4, packageUsed: 1, packageValue: "R$320" },
+  { id: 7, name: "Rafael Mendes", email: "rafael@email.com", teacher: "Prof. Carlos", stage: "A2", status: "Ativo", modality: "VIP", age: 19, startDate: "2024-05-10", location: "Dublin - Irlanda (GMT)", packageTotal: 8, packageUsed: 7, packageValue: "R$680" },
+  { id: 8, name: "Julia Almeida", email: "julia@email.com", teacher: "Prof. Maria", stage: "B2", status: "Inativo", modality: "Turma", age: 32, startDate: "2023-08-15", location: "Curitiba - PR (BRT)", packageTotal: 8, packageUsed: 8, packageValue: "R$560" },
 ];
 
 const AdminStudents = () => {
@@ -129,7 +129,8 @@ const AdminStudents = () => {
               <th className="text-left p-3 font-medium text-muted-foreground">Stage</th>
               <th className="text-left p-3 font-medium text-muted-foreground hidden lg:table-cell">Modalidade</th>
               <th className="text-left p-3 font-medium text-muted-foreground">Status</th>
-              <th className="text-left p-3 font-medium text-muted-foreground hidden lg:table-cell">Início</th>
+              <th className="text-left p-3 font-medium text-muted-foreground hidden lg:table-cell">Pacote</th>
+              <th className="text-left p-3 font-medium text-muted-foreground hidden xl:table-cell">Valor</th>
             </tr>
           </thead>
           <tbody>
@@ -152,14 +153,28 @@ const AdminStudents = () => {
                     {s.status}
                   </Badge>
                 </td>
-                <td className="p-3 text-muted-foreground text-xs hidden lg:table-cell">
-                  {new Date(s.startDate).toLocaleDateString("pt-BR")}
+                <td className="p-3 hidden lg:table-cell">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-medium">{s.packageUsed}/{s.packageTotal}</span>
+                    <div className="w-16 h-1.5 rounded-full bg-muted overflow-hidden">
+                      <div
+                        className={`h-full rounded-full transition-all ${s.packageUsed >= s.packageTotal ? "bg-destructive" : "bg-primary"}`}
+                        style={{ width: `${(s.packageUsed / s.packageTotal) * 100}%` }}
+                      />
+                    </div>
+                    {s.packageUsed >= s.packageTotal && (
+                      <Badge variant="destructive" className="text-[10px] px-1.5 py-0">Renovar</Badge>
+                    )}
+                  </div>
+                </td>
+                <td className="p-3 text-muted-foreground text-xs hidden xl:table-cell">
+                  {s.packageValue}
                 </td>
               </tr>
             ))}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={7} className="p-8 text-center text-muted-foreground">
+                <td colSpan={9} className="p-8 text-center text-muted-foreground">
                   <Users className="w-8 h-8 mx-auto mb-2 opacity-30" />
                   <p className="text-sm">Nenhum aluno encontrado</p>
                 </td>

@@ -4,11 +4,11 @@ import { Users, DollarSign, BookOpen, TrendingUp, AlertCircle } from "lucide-rea
 import { Badge } from "@/components/ui/badge";
 
 const RECENT_STUDENTS = [
-  { id: 1, name: "João Santos", teacher: "Prof. Maria", stage: "B1", status: "Ativo", modality: "Online", pending: false },
-  { id: 2, name: "Ana Costa", teacher: "Prof. Maria", stage: "A2", status: "Ativo", modality: "Presencial", pending: true },
-  { id: 3, name: "Pedro Lima", teacher: "Prof. Carlos", stage: "B2", status: "Ativo", modality: "Online", pending: false },
-  { id: 4, name: "Mariana Souza", teacher: "Prof. Maria", stage: "A1", status: "Inativo", modality: "Online", pending: true },
-  { id: 5, name: "Lucas Ferreira", teacher: "Prof. Carlos", stage: "C1", status: "Ativo", modality: "Presencial", pending: false },
+  { id: 1, name: "João Santos", teacher: "Prof. Maria", stage: "B1", status: "Ativo", packageUsed: 5, packageTotal: 8 },
+  { id: 2, name: "Ana Costa", teacher: "Prof. Maria", stage: "A2", status: "Ativo", packageUsed: 8, packageTotal: 8 },
+  { id: 3, name: "Pedro Lima", teacher: "Prof. Carlos", stage: "B2", status: "Ativo", packageUsed: 2, packageTotal: 4 },
+  { id: 4, name: "Mariana Souza", teacher: "Prof. Maria", stage: "A1", status: "Inativo", packageUsed: 4, packageTotal: 4 },
+  { id: 5, name: "Lucas Ferreira", teacher: "Prof. Carlos", stage: "C1", status: "Ativo", packageUsed: 6, packageTotal: 8 },
 ];
 
 const REVENUE_DATA = [
@@ -31,12 +31,12 @@ const AdminDashboard = () => (
       <StatCard label="Frequência geral" value="91%" icon={<TrendingUp className="w-4 h-4" />} trend="-1%" trendUp={false} />
     </div>
 
-    {/* Payments pending alert */}
+    {/* Package renewal alert */}
     <div className="flex items-center gap-3 p-4 rounded-lg border border-warning/30 bg-warning/5 mb-8">
       <AlertCircle className="w-5 h-5 text-warning shrink-0" />
       <div>
-        <p className="text-sm font-medium">2 pagamentos pendentes</p>
-        <p className="text-xs text-muted-foreground">Ana Costa e Mariana Souza possuem faturas em aberto</p>
+        <p className="text-sm font-medium">2 pacotes finalizados</p>
+        <p className="text-xs text-muted-foreground">Ana Costa e Mariana Souza finalizaram o pacote de aulas e precisam renovar</p>
       </div>
     </div>
 
@@ -52,7 +52,7 @@ const AdminDashboard = () => (
                 <th className="text-left p-3 font-medium text-muted-foreground hidden md:table-cell">Teacher</th>
                 <th className="text-left p-3 font-medium text-muted-foreground">Stage</th>
                 <th className="text-left p-3 font-medium text-muted-foreground">Status</th>
-                <th className="text-left p-3 font-medium text-muted-foreground hidden md:table-cell">Pgto</th>
+                <th className="text-left p-3 font-medium text-muted-foreground hidden md:table-cell">Pacote</th>
               </tr>
             </thead>
             <tbody>
@@ -70,11 +70,14 @@ const AdminDashboard = () => (
                     </Badge>
                   </td>
                   <td className="p-3 hidden md:table-cell">
-                    {s.pending ? (
-                      <Badge variant="destructive" className="text-xs">Pendente</Badge>
-                    ) : (
-                      <Badge variant="secondary" className="text-xs">Em dia</Badge>
-                    )}
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-medium">{s.packageUsed}/{s.packageTotal}</span>
+                      {s.packageUsed >= s.packageTotal ? (
+                        <Badge variant="destructive" className="text-[10px]">Renovar</Badge>
+                      ) : (
+                        <Badge variant="secondary" className="text-[10px]">{s.packageTotal - s.packageUsed} restantes</Badge>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}

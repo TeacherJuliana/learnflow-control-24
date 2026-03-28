@@ -14,7 +14,7 @@ const UPCOMING_CLASS = {
 const RECENT_CLASSES = [
   { id: 1, date: "25 Mar", topic: "Unit 4 — Past Simple", teacher: "Prof. Maria", status: "Presente" },
   { id: 2, date: "22 Mar", topic: "Unit 4 — Irregular Verbs", teacher: "Prof. Maria", status: "Presente" },
-  { id: 3, date: "20 Mar", topic: "Unit 3 — Review", teacher: "Prof. Maria", status: "Ausente" },
+  { id: 3, date: "20 Mar", topic: "Unit 3 — Review", teacher: "Prof. Maria", status: "Cancelada" },
 ];
 
 const StudentDashboard = () => (
@@ -43,10 +43,10 @@ const StudentDashboard = () => (
 
     {/* Stats */}
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-      <StatCard label="Aulas este mês" value={8} icon={<BookOpen className="w-4 h-4" />} />
+      <StatCard label="Aulas restantes" value="3/8" icon={<BookOpen className="w-4 h-4" />} />
       <StatCard label="Frequência" value="92%" icon={<Clock className="w-4 h-4" />} trend="+3%" trendUp />
       <StatCard label="Stage" value="B1" icon={<Trophy className="w-4 h-4" />} />
-      <StatCard label="Próximo pagamento" value="R$350" icon={<CreditCard className="w-4 h-4" />} />
+      <StatCard label="Pacote" value="R$680" icon={<CreditCard className="w-4 h-4" />} />
     </div>
 
     {/* Recent classes */}
@@ -69,7 +69,7 @@ const StudentDashboard = () => (
                 <td className="p-3 font-medium">{c.topic}</td>
                 <td className="p-3 hidden md:table-cell text-muted-foreground">{c.teacher}</td>
                 <td className="p-3">
-                  <Badge variant={c.status === "Presente" ? "default" : "destructive"} className="text-xs">
+                  <Badge variant={c.status === "Presente" ? "default" : c.status === "Cancelada" ? "secondary" : "destructive"} className="text-xs">
                     {c.status}
                   </Badge>
                 </td>

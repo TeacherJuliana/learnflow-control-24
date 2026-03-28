@@ -15,12 +15,12 @@ const TODAY_CLASSES = [
 const TeacherDashboard = () => {
   const [showPostClass, setShowPostClass] = useState(false);
   const [selectedClass, setSelectedClass] = useState<typeof TODAY_CLASSES[0] | null>(null);
-  const [postData, setPostData] = useState({ present: true, page: "", notes: "" });
+  const [postData, setPostData] = useState({ attendance: "present" as "present" | "absent" | "cancelled", page: "", notes: "" });
 
   const handlePostClass = (cls: typeof TODAY_CLASSES[0]) => {
     setSelectedClass(cls);
     setShowPostClass(true);
-    setPostData({ present: true, page: "", notes: "" });
+    setPostData({ attendance: "present", page: "", notes: "" });
   };
 
   const handleSave = () => {
@@ -50,16 +50,24 @@ const TeacherDashboard = () => {
             <p className="text-sm text-muted-foreground mb-5">{selectedClass.student} — {selectedClass.topic}</p>
             
             <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <label className="text-sm font-medium w-24">Presença</label>
+              <div>
+                <label className="text-sm font-medium block mb-2">Presença</label>
                 <div className="flex gap-2">
-                  <Button size="sm" variant={postData.present ? "default" : "outline"} onClick={() => setPostData(p => ({...p, present: true}))}>
+                  <Button size="sm" variant={postData.attendance === "present" ? "default" : "outline"} onClick={() => setPostData(p => ({...p, attendance: "present"}))}>
                     Presente
                   </Button>
-                  <Button size="sm" variant={!postData.present ? "destructive" : "outline"} onClick={() => setPostData(p => ({...p, present: false}))}>
+                  <Button size="sm" variant={postData.attendance === "absent" ? "destructive" : "outline"} onClick={() => setPostData(p => ({...p, attendance: "absent"}))}>
                     Ausente
                   </Button>
+                  <Button size="sm" variant={postData.attendance === "cancelled" ? "secondary" : "outline"} onClick={() => setPostData(p => ({...p, attendance: "cancelled"}))}>
+                    Cancelada
+                  </Button>
                 </div>
+                <p className="text-[11px] text-muted-foreground mt-1.5">
+                  {postData.attendance === "present" && "Desconta 1 aula do pacote"}
+                  {postData.attendance === "absent" && "Falta sem aviso — desconta 1 aula do pacote"}
+                  {postData.attendance === "cancelled" && "Cancelamento com aviso — não desconta do pacote"}
+                </p>
               </div>
               <div>
                 <label className="text-sm font-medium block mb-1.5">Página do Reading</label>
