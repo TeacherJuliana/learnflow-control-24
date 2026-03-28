@@ -20,7 +20,7 @@ const TeacherDashboard = () => {
   const handlePostClass = (cls: typeof TODAY_CLASSES[0]) => {
     setSelectedClass(cls);
     setShowPostClass(true);
-    setPostData({ present: true, page: "", notes: "" });
+    setPostData({ attendance: "present", page: "", notes: "" });
   };
 
   const handleSave = () => {
