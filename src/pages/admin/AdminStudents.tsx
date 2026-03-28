@@ -129,7 +129,8 @@ const AdminStudents = () => {
               <th className="text-left p-3 font-medium text-muted-foreground">Stage</th>
               <th className="text-left p-3 font-medium text-muted-foreground hidden lg:table-cell">Modalidade</th>
               <th className="text-left p-3 font-medium text-muted-foreground">Status</th>
-              <th className="text-left p-3 font-medium text-muted-foreground hidden lg:table-cell">Início</th>
+              <th className="text-left p-3 font-medium text-muted-foreground hidden lg:table-cell">Pacote</th>
+              <th className="text-left p-3 font-medium text-muted-foreground hidden xl:table-cell">Valor</th>
             </tr>
           </thead>
           <tbody>
