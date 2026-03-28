@@ -124,6 +124,7 @@ const AdminStudents = () => {
           <thead>
             <tr className="border-b bg-muted/50">
               <th className="text-left p-3 font-medium text-muted-foreground">Nome</th>
+              <th className="text-left p-3 font-medium text-muted-foreground hidden md:table-cell">Localização</th>
               <th className="text-left p-3 font-medium text-muted-foreground hidden md:table-cell">Teacher</th>
               <th className="text-left p-3 font-medium text-muted-foreground">Stage</th>
               <th className="text-left p-3 font-medium text-muted-foreground hidden lg:table-cell">Modalidade</th>
