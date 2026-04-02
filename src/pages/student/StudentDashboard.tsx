@@ -108,7 +108,7 @@ const StudentDashboard = () => {
           </div>
         </div>
 
-        <div className="space-y-4">
+        <div>
           <div className="rounded-lg border bg-card p-5">
             <h2 className="text-base font-semibold mb-3">Ações rápidas</h2>
             <div className="grid gap-2">
@@ -116,15 +116,6 @@ const StudentDashboard = () => {
               <Button variant="secondary" onClick={() => navigate("/student/payments")}>Ver pacote e cobrança</Button>
               <Button variant="secondary" onClick={() => navigate("/student/notices")}>Ler avisos</Button>
               <Button variant="secondary" onClick={() => navigate("/student/profile")}>Conferir perfil</Button>
-            </div>
-          </div>
-
-          <div className="rounded-lg border bg-card p-5">
-            <h2 className="text-base font-semibold mb-2">Como a cobrança funciona</h2>
-            <div className="space-y-2 text-sm text-muted-foreground">
-              <p><span className="font-medium text-foreground">Presente</span>: desconta 1 aula do pacote.</p>
-              <p><span className="font-medium text-foreground">Falta</span>: desconta 1 aula do pacote.</p>
-              <p><span className="font-medium text-foreground">Cancelada</span>: não desconta e não é cobrada.</p>
             </div>
           </div>
         </div>
