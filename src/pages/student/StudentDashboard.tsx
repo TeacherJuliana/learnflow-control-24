@@ -1,85 +1,136 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import StatCard from "@/components/shared/StatCard";
-import { BookOpen, Clock, Trophy, CreditCard, Video } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { BookOpen, Bell, Clock, CreditCard, Video } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import {
+  STUDENT_PROFILE,
+  formatCurrency,
+  formatDateTime,
+  getActivePackage,
+  getAttendanceRate,
+  getClassHistory,
+  getRemainingClasses,
+  getStatusLabel,
+  getUnreadNoticesCount,
+  getUpcomingClasses,
+} from "@/data/studentPortal";
 
-const UPCOMING_CLASS = {
-  teacher: "Prof. Maria Silva",
-  date: "Hoje, 15:00",
-  topic: "Unit 5 — Present Perfect",
-  link: "#",
-};
+const StudentDashboard = () => {
+  const navigate = useNavigate();
+  const upcomingClass = getUpcomingClasses()[0];
+  const recentClasses = getClassHistory().slice(0, 4);
+  const remainingClasses = getRemainingClasses();
+  const activePackage = getActivePackage();
+  const unreadNotices = getUnreadNoticesCount();
 
-const RECENT_CLASSES = [
-  { id: 1, date: "25 Mar", topic: "Unit 4 — Past Simple", teacher: "Prof. Maria", status: "Presente" },
-  { id: 2, date: "22 Mar", topic: "Unit 4 — Irregular Verbs", teacher: "Prof. Maria", status: "Presente" },
-  { id: 3, date: "20 Mar", topic: "Unit 3 — Review", teacher: "Prof. Maria", status: "Cancelada" },
-];
-
-const StudentDashboard = () => (
-  <DashboardLayout>
-    <div className="mb-8">
-      <h1 className="page-header">Olá, João 👋</h1>
-      <p className="page-subtitle">Aqui está o resumo das suas aulas</p>
-    </div>
-
-    {/* Next class card */}
-    <div className="rounded-lg border bg-card p-6 mb-8">
-      <div className="flex items-center justify-between flex-wrap gap-4">
+  return (
+    <DashboardLayout>
+      <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1">Próxima Aula</p>
-          <h2 className="text-lg font-semibold">{UPCOMING_CLASS.topic}</h2>
+          <h1 className="page-header">Olá, {STUDENT_PROFILE.name.split(" ")[0]} 👋</h1>
+          <p className="page-subtitle">Seu pacote atual está quase no fim e a próxima aula já está organizada.</p>
+        </div>
+        <Badge variant="secondary" className="px-3 py-1 text-xs">
+          {STUDENT_PROFILE.location} · {STUDENT_PROFILE.timezoneLabel}
+        </Badge>
+      </div>
+
+      {upcomingClass && (
+        <div className="rounded-lg border bg-card p-6 mb-6">
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <div>
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1">Próxima aula</p>
+              <h2 className="text-lg font-semibold">{upcomingClass.topic}</h2>
+              <p className="text-sm text-muted-foreground mt-1">
+                {upcomingClass.teacher} · {formatDateTime(upcomingClass.startsAt)} · {upcomingClass.meetingLabel}
+              </p>
+            </div>
+            <Button size="lg" className="gap-2" onClick={() => window.open(upcomingClass.meetingUrl, "_blank")}> 
+              <Video className="w-4 h-4" />
+              Entrar na aula
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {remainingClasses <= 1 && (
+        <div className="rounded-lg border border-warning/30 bg-warning/10 p-4 mb-8">
+          <p className="text-sm font-medium text-foreground">Falta {remainingClasses} aula no pacote atual.</p>
           <p className="text-sm text-muted-foreground mt-1">
-            {UPCOMING_CLASS.teacher} · {UPCOMING_CLASS.date}
+            Você já pode renovar antecipadamente para não pausar as aulas quando o saldo acabar.
           </p>
         </div>
-        <Button size="lg" className="gap-2">
-          <Video className="w-4 h-4" />
-          Entrar na Aula
-        </Button>
-      </div>
-    </div>
+      )}
 
-    {/* Stats */}
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-      <StatCard label="Aulas restantes" value="3/8" icon={<BookOpen className="w-4 h-4" />} />
-      <StatCard label="Frequência" value="92%" icon={<Clock className="w-4 h-4" />} trend="+3%" trendUp />
-      <StatCard label="Stage" value="B1" icon={<Trophy className="w-4 h-4" />} />
-      <StatCard label="Pacote" value="R$680" icon={<CreditCard className="w-4 h-4" />} />
-    </div>
-
-    {/* Recent classes */}
-    <div>
-      <h2 className="text-base font-semibold mb-4">Histórico de Aulas</h2>
-      <div className="rounded-lg border overflow-hidden">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b bg-muted/50">
-              <th className="text-left p-3 font-medium text-muted-foreground">Data</th>
-              <th className="text-left p-3 font-medium text-muted-foreground">Tópico</th>
-              <th className="text-left p-3 font-medium text-muted-foreground hidden md:table-cell">Teacher</th>
-              <th className="text-left p-3 font-medium text-muted-foreground">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {RECENT_CLASSES.map((c) => (
-              <tr key={c.id} className="border-b last:border-0 hover:bg-muted/30 transition-colors">
-                <td className="p-3">{c.date}</td>
-                <td className="p-3 font-medium">{c.topic}</td>
-                <td className="p-3 hidden md:table-cell text-muted-foreground">{c.teacher}</td>
-                <td className="p-3">
-                  <Badge variant={c.status === "Presente" ? "default" : c.status === "Cancelada" ? "secondary" : "destructive"} className="text-xs">
-                    {c.status}
-                  </Badge>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <StatCard label="Aulas restantes" value={`${remainingClasses}/${activePackage.classesTotal}`} icon={<BookOpen className="w-4 h-4" />} />
+        <StatCard label="Frequência cobrável" value={`${getAttendanceRate()}%`} icon={<Clock className="w-4 h-4" />} />
+        <StatCard label="Avisos não lidos" value={unreadNotices} icon={<Bell className="w-4 h-4" />} />
+        <StatCard label="Pacote ativo" value={formatCurrency(activePackage.amount)} icon={<CreditCard className="w-4 h-4" />} />
       </div>
-    </div>
-  </DashboardLayout>
-);
+
+      <div className="grid gap-6 lg:grid-cols-[1.4fr_0.9fr] mb-8">
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-base font-semibold">Histórico recente</h2>
+            <Button variant="secondary" size="sm" onClick={() => navigate("/student/classes")}>Ver aulas</Button>
+          </div>
+          <div className="rounded-lg border overflow-hidden">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b bg-muted/50">
+                  <th className="text-left p-3 font-medium text-muted-foreground">Data</th>
+                  <th className="text-left p-3 font-medium text-muted-foreground">Tópico</th>
+                  <th className="text-left p-3 font-medium text-muted-foreground hidden md:table-cell">Teacher</th>
+                  <th className="text-left p-3 font-medium text-muted-foreground">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recentClasses.map((classItem) => {
+                  const label = getStatusLabel(classItem.status);
+                  const variant = classItem.status === "present" ? "default" : classItem.status === "absence" ? "destructive" : "secondary";
+
+                  return (
+                    <tr key={classItem.id} className="border-b last:border-0 hover:bg-muted/30 transition-colors">
+                      <td className="p-3">{formatDateTime(classItem.startsAt)}</td>
+                      <td className="p-3 font-medium">{classItem.topic}</td>
+                      <td className="p-3 hidden md:table-cell text-muted-foreground">{classItem.teacher}</td>
+                      <td className="p-3">
+                        <Badge variant={variant} className="text-xs">{label}</Badge>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <div className="rounded-lg border bg-card p-5">
+            <h2 className="text-base font-semibold mb-3">Ações rápidas</h2>
+            <div className="grid gap-2">
+              <Button variant="secondary" onClick={() => navigate("/student/materials")}>Abrir materiais</Button>
+              <Button variant="secondary" onClick={() => navigate("/student/payments")}>Ver pacote e cobrança</Button>
+              <Button variant="secondary" onClick={() => navigate("/student/notices")}>Ler avisos</Button>
+              <Button variant="secondary" onClick={() => navigate("/student/profile")}>Conferir perfil</Button>
+            </div>
+          </div>
+
+          <div className="rounded-lg border bg-card p-5">
+            <h2 className="text-base font-semibold mb-2">Como a cobrança funciona</h2>
+            <div className="space-y-2 text-sm text-muted-foreground">
+              <p><span className="font-medium text-foreground">Presente</span>: desconta 1 aula do pacote.</p>
+              <p><span className="font-medium text-foreground">Falta</span>: desconta 1 aula do pacote.</p>
+              <p><span className="font-medium text-foreground">Cancelada</span>: não desconta e não é cobrada.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </DashboardLayout>
+  );
+};
 
 export default StudentDashboard;

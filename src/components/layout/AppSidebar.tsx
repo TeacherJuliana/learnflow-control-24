@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import {
   LayoutDashboard, Users, BookOpen, CreditCard, BarChart3,
   Calendar, ClipboardCheck, LogOut, GraduationCap, FileText,
-  Bell, Settings, Clock
+  Bell, Settings, Clock, User
 } from "lucide-react";
 
 const NAV_ITEMS: Record<UserRole, { label: string; path: string; icon: React.ElementType }[]> = {
@@ -28,6 +28,7 @@ const NAV_ITEMS: Record<UserRole, { label: string; path: string; icon: React.Ele
     { label: "Materiais", path: "/student/materials", icon: FileText },
     { label: "Avisos", path: "/student/notices", icon: Bell },
     { label: "Pagamentos", path: "/student/payments", icon: CreditCard },
+    { label: "Perfil", path: "/student/profile", icon: User },
   ],
 };
 
