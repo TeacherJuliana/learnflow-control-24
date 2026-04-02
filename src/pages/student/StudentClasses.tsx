@@ -38,7 +38,7 @@ const StudentClasses = () => {
         <StatCard label="Canceladas" value={getCancelledClassCount()} icon={<CheckCircle2 className="w-4 h-4" />} />
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] mb-8">
+      <div className="mb-8">
         <div className="rounded-lg border bg-card p-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-base font-semibold">Próximas aulas</h2>
@@ -59,16 +59,6 @@ const StudentClasses = () => {
                 </Button>
               </div>
             ))}
-          </div>
-        </div>
-
-        <div className="rounded-lg border bg-card p-5">
-          <h2 className="text-base font-semibold mb-3">Regras do pacote</h2>
-          <div className="space-y-3 text-sm text-muted-foreground">
-            <p><span className="font-medium text-foreground">Presente</span> desconta 1 aula.</p>
-            <p><span className="font-medium text-foreground">Falta</span> também desconta 1 aula.</p>
-            <p><span className="font-medium text-foreground">Cancelada com aviso</span> não é cobrada.</p>
-            <p><span className="font-medium text-foreground">Renovação</span> pode ser feita antes do saldo zerar.</p>
           </div>
         </div>
       </div>
