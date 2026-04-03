@@ -18,6 +18,7 @@ import StudentPayments from "./pages/student/StudentPayments";
 import StudentProfile from "./pages/student/StudentProfile";
 import TeacherSchedule from "./pages/teacher/TeacherSchedule";
 import AdminFinance from "./pages/admin/AdminFinance";
+import MaterialsManager from "./pages/shared/MaterialsManager";
 
 const queryClient = new QueryClient();
 
@@ -38,9 +39,11 @@ const App = () => (
             <Route path="/student/profile" element={<StudentProfile />} />
             <Route path="/teacher" element={<TeacherDashboard />} />
             <Route path="/teacher/schedule" element={<TeacherSchedule />} />
+            <Route path="/teacher/materials" element={<MaterialsManager />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/students" element={<AdminStudents />} />
             <Route path="/admin/waiting-list" element={<AdminWaitingList />} />
+            <Route path="/admin/materials" element={<MaterialsManager />} />
             <Route path="/admin/finance" element={<AdminFinance />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
