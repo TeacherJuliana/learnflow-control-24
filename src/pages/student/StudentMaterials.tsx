@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, Download, Search, BookOpen, Headphones, Video, File, Image, ExternalLink } from "lucide-react";
 import { useState, useMemo } from "react";
-import { STUDENT_MATERIALS, type MaterialType, type StudentMaterial, getRemainingClasses, getUpcomingClasses } from "@/data/studentPortal";
+import { STUDENT_MATERIALS, type MaterialType, getUpcomingClasses } from "@/data/studentPortal";
 
 const TYPE_CONFIG: Record<MaterialType, { label: string; icon: React.ElementType; color: string }> = {
   reading: { label: "Reading", icon: BookOpen, color: "bg-primary/10 text-primary" },
@@ -20,7 +20,7 @@ const StudentMaterials = () => {
   const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState("all");
   const nextClass = getUpcomingClasses()[0];
-  const remainingClasses = getRemainingClasses();
+  
 
   const filtered = useMemo(() => {
     return STUDENT_MATERIALS.filter((m) => {
@@ -37,7 +37,7 @@ const StudentMaterials = () => {
         <p className="page-subtitle">Seus recursos de estudo organizados</p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3 mb-6">
+      <div className="grid gap-4 md:grid-cols-2 mb-6">
         <div className="rounded-lg border bg-card p-4">
           <p className="text-sm text-muted-foreground">Biblioteca</p>
           <p className="text-2xl font-semibold mt-2">{STUDENT_MATERIALS.length} itens</p>
@@ -47,11 +47,6 @@ const StudentMaterials = () => {
           <p className="text-sm text-muted-foreground">Próxima aula</p>
           <p className="text-base font-semibold mt-2">{nextClass?.topic ?? "Sem aula agendada"}</p>
           <p className="text-sm text-muted-foreground mt-1">Use os materiais para chegar preparado no encontro.</p>
-        </div>
-        <div className="rounded-lg border bg-card p-4">
-          <p className="text-sm text-muted-foreground">Saldo do pacote</p>
-          <p className="text-2xl font-semibold mt-2">{remainingClasses} aula{remainingClasses === 1 ? "" : "s"}</p>
-          <p className="text-sm text-muted-foreground mt-1">Cancelamentos avisados não descontam.</p>
         </div>
       </div>
 
