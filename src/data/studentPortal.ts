@@ -23,6 +23,7 @@ export interface StudentMaterial {
   topic: string;
   date: string;
   size: string;
+  url?: string;
 }
 
 export interface StudentPackage {
