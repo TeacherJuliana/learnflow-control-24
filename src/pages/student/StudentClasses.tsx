@@ -3,9 +3,8 @@ import StatCard from "@/components/shared/StatCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  CalendarDays, CheckCircle2, CircleOff, CreditCard, Video, XCircle,
+  CalendarDays, CheckCircle2, CircleOff, CreditCard, Video,
 } from "lucide-react";
-import { useState } from "react";
 import {
   formatDateTime,
   getAbsenceClassCount,
