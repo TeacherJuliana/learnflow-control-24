@@ -2,7 +2,7 @@ import DashboardLayout from "@/components/layout/DashboardLayout";
 import StatCard from "@/components/shared/StatCard";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { CreditCard, Package, CircleOff, Wallet } from "lucide-react";
+import { CreditCard, Package, CircleOff, Wallet, QrCode } from "lucide-react";
 import {
   formatCurrency,
   formatDate,
@@ -39,7 +39,7 @@ const StudentPayments = () => {
         <StatCard label="Pacote ativo" value={formatCurrency(activePackage.amount)} icon={<Wallet className="w-4 h-4" />} />
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] mb-8">
+      <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] mb-6">
         <div className="rounded-lg border bg-card p-5">
           <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
             <div>
@@ -56,14 +56,14 @@ const StudentPayments = () => {
           </div>
         </div>
 
-        <div className="rounded-lg border bg-card p-5">
-          <h2 className="text-base font-semibold mb-3">Regras financeiras</h2>
-          <div className="space-y-3 text-sm text-muted-foreground">
-            <p><span className="font-medium text-foreground">Presença</span> consome 1 aula.</p>
-            <p><span className="font-medium text-foreground">Falta</span> também consome 1 aula.</p>
-            <p><span className="font-medium text-foreground">Cancelamento avisado</span> não gera cobrança.</p>
-            <p><span className="font-medium text-foreground">Renovação antecipada</span> fica disponível antes do pacote zerar.</p>
+        <div className="rounded-lg border bg-card p-5 flex flex-col items-center justify-center text-center">
+          <QrCode className="w-12 h-12 text-muted-foreground mb-3" />
+          <h2 className="text-base font-semibold mb-1">Pagar via Pix</h2>
+          <p className="text-sm text-muted-foreground mb-4">Escaneie o QR Code com o app do seu banco para pagar o próximo pacote.</p>
+          <div className="w-40 h-40 rounded-lg border-2 border-dashed border-muted-foreground/30 flex items-center justify-center mb-3">
+            <p className="text-xs text-muted-foreground">QR Code será gerado aqui</p>
           </div>
+          <p className="text-xs text-muted-foreground">O pagamento é confirmado automaticamente.</p>
         </div>
       </div>
 
