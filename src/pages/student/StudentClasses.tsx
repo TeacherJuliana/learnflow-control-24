@@ -14,8 +14,6 @@ import {
   getStatusLabel,
   getUpcomingClasses,
   getClassHistory,
-  canCancelClasses,
-  STUDENT_PROFILE,
 } from "@/data/studentPortal";
 
 const StudentClasses = () => {
