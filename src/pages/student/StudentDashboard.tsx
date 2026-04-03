@@ -1,16 +1,18 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import StatCard from "@/components/shared/StatCard";
-import { Badge } from "@/components/ui/badge"; 
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { BookOpen, Bell, CreditCard, Video, Package } from "lucide-react";
 import {
   STUDENT_PROFILE,
   formatCurrency,
   formatDateTime,
   getActivePackage,
+  getClassHistory,
   getRemainingClasses,
   getStatusLabel,
   getUnreadNoticesCount,
-  getUpcomingClasses, getClassHistory, getStatusLabel,
+  getUpcomingClasses,
 } from "@/data/studentPortal";
 
 const StudentDashboard = () => {
