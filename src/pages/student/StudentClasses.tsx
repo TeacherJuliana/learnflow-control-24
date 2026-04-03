@@ -57,12 +57,6 @@ const StudentClasses = () => {
                   <Video className="w-4 h-4" />
                   Entrar
                 </Button>
-                {showCancel && (
-                  <Button variant="outline" size="sm" className="gap-1 text-destructive border-destructive/30 hover:bg-destructive/10">
-                    <XCircle className="w-3.5 h-3.5" />
-                    Cancelar
-                  </Button>
-                )}
               </div>
             ))}
           </div>
