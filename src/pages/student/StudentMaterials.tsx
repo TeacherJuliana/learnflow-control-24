@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, Download, Search, BookOpen, Headphones, Video, File, Image, ExternalLink } from "lucide-react";
 import { useState, useMemo } from "react";
-import { STUDENT_MATERIALS, type MaterialType, type StudentMaterial, getUpcomingClasses } from "@/data/studentPortal";
+import { STUDENT_MATERIALS, type MaterialType, getUpcomingClasses } from "@/data/studentPortal";
 
 const TYPE_CONFIG: Record<MaterialType, { label: string; icon: React.ElementType; color: string }> = {
   reading: { label: "Reading", icon: BookOpen, color: "bg-primary/10 text-primary" },
