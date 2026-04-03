@@ -37,7 +37,7 @@ const StudentMaterials = () => {
         <p className="page-subtitle">Seus recursos de estudo organizados</p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3 mb-6">
+      <div className="grid gap-4 md:grid-cols-2 mb-6">
         <div className="rounded-lg border bg-card p-4">
           <p className="text-sm text-muted-foreground">Biblioteca</p>
           <p className="text-2xl font-semibold mt-2">{STUDENT_MATERIALS.length} itens</p>
