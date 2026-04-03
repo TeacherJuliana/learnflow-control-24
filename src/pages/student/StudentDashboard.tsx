@@ -2,14 +2,12 @@ import DashboardLayout from "@/components/layout/DashboardLayout";
 import StatCard from "@/components/shared/StatCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Bell, Clock, CreditCard, Video } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { BookOpen, Bell, CreditCard, Video, Package } from "lucide-react";
 import {
   STUDENT_PROFILE,
   formatCurrency,
   formatDateTime,
   getActivePackage,
-  getAttendanceRate,
   getClassHistory,
   getRemainingClasses,
   getStatusLabel,
@@ -18,7 +16,6 @@ import {
 } from "@/data/studentPortal";
 
 const StudentDashboard = () => {
-  const navigate = useNavigate();
   const upcomingClass = getUpcomingClasses()[0];
   const recentClasses = getClassHistory().slice(0, 4);
   const remainingClasses = getRemainingClasses();
@@ -66,17 +63,15 @@ const StudentDashboard = () => {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <StatCard label="Aulas restantes" value={`${remainingClasses}/${activePackage.classesTotal}`} icon={<BookOpen className="w-4 h-4" />} />
-        <StatCard label="Frequência cobrável" value={`${getAttendanceRate()}%`} icon={<Clock className="w-4 h-4" />} />
+        <StatCard label="Pacote" value={activePackage.label.split("·")[0].trim()} icon={<Package className="w-4 h-4" />} />
         <StatCard label="Avisos não lidos" value={unreadNotices} icon={<Bell className="w-4 h-4" />} />
         <StatCard label="Pacote ativo" value={formatCurrency(activePackage.amount)} icon={<CreditCard className="w-4 h-4" />} />
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[1.4fr_0.9fr] mb-8">
-        <div>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-base font-semibold">Histórico recente</h2>
-            <Button variant="secondary" size="sm" onClick={() => navigate("/student/classes")}>Ver aulas</Button>
-          </div>
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-base font-semibold">Histórico recente</h2>
+        </div>
           <div className="rounded-lg border overflow-hidden">
             <table className="w-full text-sm">
               <thead>
@@ -106,19 +101,6 @@ const StudentDashboard = () => {
               </tbody>
             </table>
           </div>
-        </div>
-
-        <div>
-          <div className="rounded-lg border bg-card p-5">
-            <h2 className="text-base font-semibold mb-3">Ações rápidas</h2>
-            <div className="grid gap-2">
-              <Button variant="secondary" onClick={() => navigate("/student/materials")}>Abrir materiais</Button>
-              <Button variant="secondary" onClick={() => navigate("/student/payments")}>Ver pacote e cobrança</Button>
-              <Button variant="secondary" onClick={() => navigate("/student/notices")}>Ler avisos</Button>
-              <Button variant="secondary" onClick={() => navigate("/student/profile")}>Conferir perfil</Button>
-            </div>
-          </div>
-        </div>
       </div>
     </DashboardLayout>
   );

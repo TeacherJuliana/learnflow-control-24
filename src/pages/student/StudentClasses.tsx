@@ -3,12 +3,9 @@ import StatCard from "@/components/shared/StatCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  CalendarDays,
-  CheckCircle2,
-  CircleOff,
-  CreditCard,
-  Video,
+  CalendarDays, CheckCircle2, CircleOff, CreditCard, Video, XCircle,
 } from "lucide-react";
+import { useState } from "react";
 import {
   formatDateTime,
   getAbsenceClassCount,
@@ -18,11 +15,14 @@ import {
   getStatusLabel,
   getUpcomingClasses,
   getClassHistory,
+  canCancelClasses,
+  STUDENT_PROFILE,
 } from "@/data/studentPortal";
 
 const StudentClasses = () => {
   const upcomingClasses = getUpcomingClasses();
   const history = getClassHistory();
+  const showCancel = canCancelClasses(STUDENT_PROFILE.studentType);
 
   return (
     <DashboardLayout>
@@ -57,6 +57,12 @@ const StudentClasses = () => {
                   <Video className="w-4 h-4" />
                   Entrar
                 </Button>
+                {showCancel && (
+                  <Button variant="outline" size="sm" className="gap-1 text-destructive border-destructive/30 hover:bg-destructive/10">
+                    <XCircle className="w-3.5 h-3.5" />
+                    Cancelar
+                  </Button>
+                )}
               </div>
             ))}
           </div>

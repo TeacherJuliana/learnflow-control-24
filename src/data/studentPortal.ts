@@ -1,5 +1,7 @@
 export type ClassStatus = "scheduled" | "present" | "absence" | "cancelled";
-export type MaterialType = "reading" | "audio" | "video" | "worksheet";
+export type MaterialType = "reading" | "audio" | "video" | "worksheet" | "image" | "external";
+export type StudentType = "vip" | "vip_kids" | "group" | "group_kids";
+
 export type PackageStatus = "active" | "completed" | "pending";
 export type NoticeCategory = "financeiro" | "agenda" | "materiais";
 
@@ -21,6 +23,7 @@ export interface StudentMaterial {
   topic: string;
   date: string;
   size: string;
+  url?: string;
 }
 
 export interface StudentPackage {
@@ -47,6 +50,7 @@ export const PORTAL_REFERENCE_DATE = new Date("2026-04-02T12:00:00-03:00");
 export const STUDENT_PROFILE = {
   name: "João Santos",
   email: "joao@escola.com",
+  studentType: "vip" as StudentType,
   location: "Dublin, Irlanda",
   timezone: "Europe/Dublin",
   timezoneLabel: "Europe/Dublin · GMT+1",
@@ -161,6 +165,8 @@ export const STUDENT_MATERIALS: StudentMaterial[] = [
   { id: 6, title: "Grammar Exercises - Unit 5", type: "worksheet", stage: "B1", topic: "Mixed Grammar", date: "2026-03-08", size: "890 KB" },
   { id: 7, title: "Pronunciation Guide", type: "audio", stage: "A2", topic: "Pronunciation", date: "2026-03-05", size: "3.2 MB" },
   { id: 8, title: "Speaking Practice - Interviews", type: "video", stage: "B1", topic: "Speaking", date: "2026-03-01", size: "62 MB" },
+  { id: 9, title: "Flashcards - Animals", type: "image" as MaterialType, stage: "A2", topic: "Vocabulary", date: "2026-03-22", size: "4.1 MB" },
+  { id: 10, title: "Notebook LM - Unit 5 Review", type: "external" as MaterialType, stage: "B1", topic: "Mixed Grammar", date: "2026-03-25", size: "—", url: "https://notebooklm.google.com/example" },
 ];
 
 export const STUDENT_PACKAGES: StudentPackage[] = [
@@ -297,3 +303,5 @@ export const getStatusLabel = (status: ClassStatus) => {
       return "Cancelada";
   }
 };
+
+export const canCancelClasses = (type: StudentType) => type === "vip" || type === "vip_kids";
