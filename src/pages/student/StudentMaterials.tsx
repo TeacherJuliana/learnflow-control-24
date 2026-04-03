@@ -48,11 +48,6 @@ const StudentMaterials = () => {
           <p className="text-base font-semibold mt-2">{nextClass?.topic ?? "Sem aula agendada"}</p>
           <p className="text-sm text-muted-foreground mt-1">Use os materiais para chegar preparado no encontro.</p>
         </div>
-        <div className="rounded-lg border bg-card p-4">
-          <p className="text-sm text-muted-foreground">Saldo do pacote</p>
-          <p className="text-2xl font-semibold mt-2">{remainingClasses} aula{remainingClasses === 1 ? "" : "s"}</p>
-          <p className="text-sm text-muted-foreground mt-1">Cancelamentos avisados não descontam.</p>
-        </div>
       </div>
 
       {/* Search */}
