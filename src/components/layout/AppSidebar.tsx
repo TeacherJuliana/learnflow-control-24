@@ -12,6 +12,7 @@ const NAV_ITEMS: Record<UserRole, { label: string; path: string; icon: React.Ele
     { label: "Alunos", path: "/admin/students", icon: Users },
     { label: "Lista de Espera", path: "/admin/waiting-list", icon: Clock },
     { label: "Teachers", path: "/admin/teachers", icon: GraduationCap },
+    { label: "Materiais", path: "/admin/materials", icon: FileText },
     { label: "Financeiro", path: "/admin/finance", icon: CreditCard },
     { label: "Relatórios", path: "/admin/reports", icon: BarChart3 },
     { label: "Configurações", path: "/admin/settings", icon: Settings },
@@ -20,6 +21,7 @@ const NAV_ITEMS: Record<UserRole, { label: string; path: string; icon: React.Ele
     { label: "Dashboard", path: "/teacher", icon: LayoutDashboard },
     { label: "Agenda", path: "/teacher/schedule", icon: Calendar },
     { label: "Alunos", path: "/teacher/students", icon: Users },
+    { label: "Materiais", path: "/teacher/materials", icon: FileText },
     { label: "Pós-Aula", path: "/teacher/post-class", icon: ClipboardCheck },
   ],
   student: [
