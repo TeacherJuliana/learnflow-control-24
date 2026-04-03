@@ -20,7 +20,7 @@ const StudentMaterials = () => {
   const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState("all");
   const nextClass = getUpcomingClasses()[0];
-  const remainingClasses = getRemainingClasses();
+  
 
   const filtered = useMemo(() => {
     return STUDENT_MATERIALS.filter((m) => {
