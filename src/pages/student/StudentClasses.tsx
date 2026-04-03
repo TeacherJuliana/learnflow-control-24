@@ -19,7 +19,7 @@ import {
 const StudentClasses = () => {
   const upcomingClasses = getUpcomingClasses();
   const history = getClassHistory();
-  const showCancel = canCancelClasses(STUDENT_PROFILE.studentType);
+  
 
   return (
     <DashboardLayout>
