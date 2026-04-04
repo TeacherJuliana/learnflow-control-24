@@ -3,7 +3,7 @@ import StatCard from "@/components/shared/StatCard";
 import { Users, Calendar, BookOpen, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const TODAY_CLASSES = [
   { id: 1, time: "09:00", student: "João Santos", stage: "B1", topic: "Present Perfect", done: true },
