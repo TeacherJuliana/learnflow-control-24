@@ -13,20 +13,7 @@ const TODAY_CLASSES = [
 ];
 
 const TeacherDashboard = () => {
-  const [showPostClass, setShowPostClass] = useState(false);
-  const [selectedClass, setSelectedClass] = useState<typeof TODAY_CLASSES[0] | null>(null);
-  const [postData, setPostData] = useState({ attendance: "present" as "present" | "absent" | "cancelled", page: "", notes: "" });
-
-  const handlePostClass = (cls: typeof TODAY_CLASSES[0]) => {
-    setSelectedClass(cls);
-    setShowPostClass(true);
-    setPostData({ attendance: "present", page: "", notes: "" });
-  };
-
-  const handleSave = () => {
-    setShowPostClass(false);
-    setSelectedClass(null);
-  };
+  const navigate = useNavigate();
 
   return (
     <DashboardLayout>
