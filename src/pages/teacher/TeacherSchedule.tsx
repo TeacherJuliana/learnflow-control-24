@@ -49,6 +49,7 @@ const WEEKLY_SCHEDULE: Record<string, ClassItem[]> = {
 const TeacherSchedule = () => {
   const [view, setView] = useState<"week" | "day">("week");
   const [selectedDay, setSelectedDay] = useState(WEEKDAYS[0]);
+  const navigate = useNavigate();
 
   const todayClasses = WEEKLY_SCHEDULE[selectedDay] || [];
   const totalWeek = Object.values(WEEKLY_SCHEDULE).reduce((sum, d) => sum + d.length, 0);
