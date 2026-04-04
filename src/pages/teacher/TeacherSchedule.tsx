@@ -86,6 +86,7 @@ const TeacherSchedule = () => {
                   <div
                     key={cls.id}
                     className="p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors cursor-pointer"
+                    onClick={() => navigate(`/teacher/lesson/${cls.id}`)}
                   >
                     <div className="flex items-center gap-1.5 mb-1.5">
                       <Clock className="w-3 h-3 text-muted-foreground" />
