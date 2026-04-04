@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChevronLeft, ChevronRight, Clock, MapPin, Video } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const WEEKDAYS = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta"];
 
@@ -48,6 +49,7 @@ const WEEKLY_SCHEDULE: Record<string, ClassItem[]> = {
 const TeacherSchedule = () => {
   const [view, setView] = useState<"week" | "day">("week");
   const [selectedDay, setSelectedDay] = useState(WEEKDAYS[0]);
+  const navigate = useNavigate();
 
   const todayClasses = WEEKLY_SCHEDULE[selectedDay] || [];
   const totalWeek = Object.values(WEEKLY_SCHEDULE).reduce((sum, d) => sum + d.length, 0);
@@ -84,6 +86,7 @@ const TeacherSchedule = () => {
                   <div
                     key={cls.id}
                     className="p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors cursor-pointer"
+                    onClick={() => navigate(`/teacher/lesson/${cls.id}`)}
                   >
                     <div className="flex items-center gap-1.5 mb-1.5">
                       <Clock className="w-3 h-3 text-muted-foreground" />
@@ -171,7 +174,7 @@ const TeacherSchedule = () => {
                 {cls.done ? (
                   <Badge className="text-xs bg-success text-success-foreground">Concluída</Badge>
                 ) : (
-                  <Button size="sm" variant="outline">Pós-Aula</Button>
+                  <Button size="sm" variant="outline" onClick={() => navigate(`/teacher/lesson/${cls.id}`)}>Registrar Aula</Button>
                 )}
               </div>
             ))}

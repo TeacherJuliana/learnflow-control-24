@@ -3,7 +3,7 @@ import StatCard from "@/components/shared/StatCard";
 import { Users, Calendar, BookOpen, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const TODAY_CLASSES = [
   { id: 1, time: "09:00", student: "João Santos", stage: "B1", topic: "Present Perfect", done: true },
@@ -13,20 +13,7 @@ const TODAY_CLASSES = [
 ];
 
 const TeacherDashboard = () => {
-  const [showPostClass, setShowPostClass] = useState(false);
-  const [selectedClass, setSelectedClass] = useState<typeof TODAY_CLASSES[0] | null>(null);
-  const [postData, setPostData] = useState({ attendance: "present" as "present" | "absent" | "cancelled", page: "", notes: "" });
-
-  const handlePostClass = (cls: typeof TODAY_CLASSES[0]) => {
-    setSelectedClass(cls);
-    setShowPostClass(true);
-    setPostData({ attendance: "present", page: "", notes: "" });
-  };
-
-  const handleSave = () => {
-    setShowPostClass(false);
-    setSelectedClass(null);
-  };
+  const navigate = useNavigate();
 
   return (
     <DashboardLayout>
@@ -42,60 +29,6 @@ const TeacherDashboard = () => {
         <StatCard label="Frequência geral" value="94%" icon={<CheckCircle className="w-4 h-4" />} trend="+2%" trendUp />
       </div>
 
-      {/* Post-class modal */}
-      {showPostClass && selectedClass && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/20 backdrop-blur-sm">
-          <div className="bg-card rounded-xl border shadow-lg w-full max-w-md p-6 mx-4">
-            <h3 className="font-semibold text-lg mb-1">Pós-Aula</h3>
-            <p className="text-sm text-muted-foreground mb-5">{selectedClass.student} — {selectedClass.topic}</p>
-            
-            <div className="space-y-4">
-              <div>
-                <label className="text-sm font-medium block mb-2">Presença</label>
-                <div className="flex gap-2">
-                  <Button size="sm" variant={postData.attendance === "present" ? "default" : "outline"} onClick={() => setPostData(p => ({...p, attendance: "present"}))}>
-                    Presente
-                  </Button>
-                  <Button size="sm" variant={postData.attendance === "absent" ? "destructive" : "outline"} onClick={() => setPostData(p => ({...p, attendance: "absent"}))}>
-                    Ausente
-                  </Button>
-                  <Button size="sm" variant={postData.attendance === "cancelled" ? "secondary" : "outline"} onClick={() => setPostData(p => ({...p, attendance: "cancelled"}))}>
-                    Cancelada
-                  </Button>
-                </div>
-                <p className="text-[11px] text-muted-foreground mt-1.5">
-                  {postData.attendance === "present" && "Desconta 1 aula do pacote"}
-                  {postData.attendance === "absent" && "Falta sem aviso — desconta 1 aula do pacote"}
-                  {postData.attendance === "cancelled" && "Cancelamento com aviso — não desconta do pacote"}
-                </p>
-              </div>
-              <div>
-                <label className="text-sm font-medium block mb-1.5">Página do Reading</label>
-                <input
-                  className="w-full h-10 px-3 rounded-md border bg-background text-sm"
-                  placeholder="Ex: p. 42-45"
-                  value={postData.page}
-                  onChange={e => setPostData(p => ({...p, page: e.target.value}))}
-                />
-              </div>
-              <div>
-                <label className="text-sm font-medium block mb-1.5">Observação</label>
-                <textarea
-                  className="w-full px-3 py-2 rounded-md border bg-background text-sm min-h-[80px] resize-none"
-                  placeholder="Desempenho, dificuldades, próximos passos..."
-                  value={postData.notes}
-                  onChange={e => setPostData(p => ({...p, notes: e.target.value}))}
-                />
-              </div>
-            </div>
-
-            <div className="flex gap-2 mt-6">
-              <Button variant="outline" className="flex-1" onClick={() => setShowPostClass(false)}>Cancelar</Button>
-              <Button className="flex-1" onClick={handleSave}>Salvar</Button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Today schedule */}
       <h2 className="text-base font-semibold mb-4">Agenda do Dia</h2>
@@ -113,8 +46,8 @@ const TeacherDashboard = () => {
             {cls.done ? (
               <Badge className="text-xs bg-success text-success-foreground">Concluída</Badge>
             ) : (
-              <Button size="sm" variant="outline" onClick={() => handlePostClass(cls)}>
-                Pós-Aula
+              <Button size="sm" variant="outline" onClick={() => navigate(`/teacher/lesson/${cls.id}`)}>
+                Registrar Aula
               </Button>
             )}
           </div>
