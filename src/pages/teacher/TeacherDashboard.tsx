@@ -1,9 +1,10 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import StatCard from "@/components/shared/StatCard";
-import { Users, Calendar, BookOpen, CheckCircle } from "lucide-react";
+import { Users, Calendar, BookOpen, CheckCircle, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useNavigate } from "react-router-dom";
+
+const GOOGLE_MEET_LINK = "https://meet.google.com/xxx-xxxx-xxx";
 
 const TODAY_CLASSES = [
   { id: 1, time: "09:00", student: "João Santos", stage: "B1", topic: "Present Perfect", done: true },
@@ -13,7 +14,9 @@ const TODAY_CLASSES = [
 ];
 
 const TeacherDashboard = () => {
-  const navigate = useNavigate();
+  const handleStartClass = () => {
+    window.open(GOOGLE_MEET_LINK, "_blank");
+  };
 
   return (
     <DashboardLayout>
@@ -28,7 +31,6 @@ const TeacherDashboard = () => {
         <StatCard label="Aulas este mês" value={34} icon={<BookOpen className="w-4 h-4" />} />
         <StatCard label="Frequência geral" value="94%" icon={<CheckCircle className="w-4 h-4" />} trend="+2%" trendUp />
       </div>
-
 
       {/* Today schedule */}
       <h2 className="text-base font-semibold mb-4">Agenda do Dia</h2>
@@ -46,8 +48,9 @@ const TeacherDashboard = () => {
             {cls.done ? (
               <Badge className="text-xs bg-success text-success-foreground">Concluída</Badge>
             ) : (
-              <Button size="sm" variant="outline" onClick={() => navigate(`/teacher/lesson/${cls.id}`)}>
-                Registrar Aula
+              <Button size="sm" className="gap-1.5" onClick={handleStartClass}>
+                <Video className="w-3.5 h-3.5" />
+                Iniciar Aula
               </Button>
             )}
           </div>
