@@ -46,8 +46,8 @@ const TeacherDashboard = () => {
             {cls.done ? (
               <Badge className="text-xs bg-success text-success-foreground">Concluída</Badge>
             ) : (
-              <Button size="sm" variant="outline" onClick={() => handlePostClass(cls)}>
-                Pós-Aula
+              <Button size="sm" variant="outline" onClick={() => navigate(`/teacher/lesson/${cls.id}`)}>
+                Registrar Aula
               </Button>
             )}
           </div>
