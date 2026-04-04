@@ -17,6 +17,7 @@ import StudentNotices from "./pages/student/StudentNotices";
 import StudentPayments from "./pages/student/StudentPayments";
 import StudentProfile from "./pages/student/StudentProfile";
 import TeacherSchedule from "./pages/teacher/TeacherSchedule";
+import TeacherLessonDetail from "./pages/teacher/TeacherLessonDetail";
 import AdminFinance from "./pages/admin/AdminFinance";
 import MaterialsManager from "./pages/shared/MaterialsManager";
 
