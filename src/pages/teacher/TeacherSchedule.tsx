@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChevronLeft, ChevronRight, Clock, MapPin, Video } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const WEEKDAYS = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta"];
 
