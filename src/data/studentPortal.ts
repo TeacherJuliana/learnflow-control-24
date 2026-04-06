@@ -156,17 +156,39 @@ export const STUDENT_CLASSES: StudentClass[] = [
   },
 ];
 
+export const MATERIAL_STAGES = [
+  "Stage 1", "Stage 2", "Stage 3", "Stage 4", "Stage 5", "Stage 6",
+  "Stage 7", "Stage 8", "Stage 9", "Stage 10", "Stage 11", "Stage 12",
+  "Extra",
+] as const;
+
+export type MaterialStage = (typeof MATERIAL_STAGES)[number];
+
 export const STUDENT_MATERIALS: StudentMaterial[] = [
-  { id: 1, title: "Present Perfect - Text", type: "reading", stage: "B1", topic: "Present Perfect", date: "2026-03-20", size: "2.4 MB" },
-  { id: 2, title: "Comparatives Worksheet", type: "worksheet", stage: "A2", topic: "Comparatives", date: "2026-03-18", size: "1.1 MB" },
-  { id: 3, title: "Listening - Daily Routines", type: "audio", stage: "A2", topic: "Daily Routines", date: "2026-03-15", size: "5.8 MB" },
-  { id: 4, title: "Conditionals Explained", type: "video", stage: "B2", topic: "Conditionals", date: "2026-03-12", size: "45 MB" },
-  { id: 5, title: "Vocabulary - Travel", type: "reading", stage: "B1", topic: "Vocabulary", date: "2026-03-10", size: "1.8 MB" },
-  { id: 6, title: "Grammar Exercises - Unit 5", type: "worksheet", stage: "B1", topic: "Mixed Grammar", date: "2026-03-08", size: "890 KB" },
-  { id: 7, title: "Pronunciation Guide", type: "audio", stage: "A2", topic: "Pronunciation", date: "2026-03-05", size: "3.2 MB" },
-  { id: 8, title: "Speaking Practice - Interviews", type: "video", stage: "B1", topic: "Speaking", date: "2026-03-01", size: "62 MB" },
-  { id: 9, title: "Flashcards - Animals", type: "image" as MaterialType, stage: "A2", topic: "Vocabulary", date: "2026-03-22", size: "4.1 MB" },
-  { id: 10, title: "Notebook LM - Unit 5 Review", type: "external" as MaterialType, stage: "B1", topic: "Mixed Grammar", date: "2026-03-25", size: "—", url: "https://notebooklm.google.com/example" },
+  { id: 1, title: "Present Perfect - Text", type: "reading", stage: "Stage 5", topic: "Present Perfect", date: "2026-03-20", size: "2.4 MB" },
+  { id: 2, title: "Comparatives Worksheet", type: "worksheet", stage: "Stage 3", topic: "Comparatives", date: "2026-03-18", size: "1.1 MB" },
+  { id: 3, title: "Listening - Daily Routines", type: "audio", stage: "Stage 2", topic: "Daily Routines", date: "2026-03-15", size: "5.8 MB" },
+  { id: 4, title: "Conditionals Explained", type: "video", stage: "Stage 7", topic: "Conditionals", date: "2026-03-12", size: "45 MB" },
+  { id: 5, title: "Vocabulary - Travel", type: "reading", stage: "Stage 4", topic: "Vocabulary", date: "2026-03-10", size: "1.8 MB" },
+  { id: 6, title: "Grammar Exercises - Unit 5", type: "worksheet", stage: "Stage 5", topic: "Mixed Grammar", date: "2026-03-08", size: "890 KB" },
+  { id: 7, title: "Pronunciation Guide", type: "audio", stage: "Stage 1", topic: "Pronunciation", date: "2026-03-05", size: "3.2 MB" },
+  { id: 8, title: "Speaking Practice - Interviews", type: "video", stage: "Stage 6", topic: "Speaking", date: "2026-03-01", size: "62 MB" },
+  { id: 9, title: "Flashcards - Animals", type: "image", stage: "Stage 1", topic: "Vocabulary", date: "2026-03-22", size: "4.1 MB" },
+  { id: 10, title: "Notebook LM - Unit 5 Review", type: "external", stage: "Stage 5", topic: "Mixed Grammar", date: "2026-03-25", size: "—", url: "https://notebooklm.google.com/example" },
+  { id: 11, title: "Alphabet & Greetings", type: "reading", stage: "Stage 1", topic: "Basics", date: "2026-02-10", size: "1.2 MB" },
+  { id: 12, title: "Numbers & Colors", type: "worksheet", stage: "Stage 1", topic: "Basics", date: "2026-02-12", size: "980 KB" },
+  { id: 13, title: "Simple Present Intro", type: "video", stage: "Stage 2", topic: "Simple Present", date: "2026-02-15", size: "38 MB" },
+  { id: 14, title: "Prepositions of Place", type: "reading", stage: "Stage 3", topic: "Prepositions", date: "2026-02-18", size: "1.5 MB" },
+  { id: 15, title: "Past Simple Stories", type: "audio", stage: "Stage 4", topic: "Past Simple", date: "2026-02-20", size: "4.7 MB" },
+  { id: 16, title: "Future Tenses Overview", type: "video", stage: "Stage 6", topic: "Future Tenses", date: "2026-02-22", size: "52 MB" },
+  { id: 17, title: "Phrasal Verbs List", type: "reading", stage: "Stage 8", topic: "Phrasal Verbs", date: "2026-02-25", size: "2.1 MB" },
+  { id: 18, title: "Reported Speech Drill", type: "worksheet", stage: "Stage 9", topic: "Reported Speech", date: "2026-02-28", size: "1.3 MB" },
+  { id: 19, title: "Advanced Listening", type: "audio", stage: "Stage 10", topic: "Listening Skills", date: "2026-03-02", size: "6.4 MB" },
+  { id: 20, title: "Debate Preparation", type: "reading", stage: "Stage 11", topic: "Argumentation", date: "2026-03-04", size: "2.8 MB" },
+  { id: 21, title: "Proficiency Mock Test", type: "worksheet", stage: "Stage 12", topic: "Mixed Skills", date: "2026-03-06", size: "3.5 MB" },
+  { id: 22, title: "Idioms & Expressions", type: "reading", stage: "Extra", topic: "Culture", date: "2026-03-09", size: "1.9 MB" },
+  { id: 23, title: "Movie Listening Activity", type: "video", stage: "Extra", topic: "Entertainment", date: "2026-03-11", size: "75 MB" },
+  { id: 24, title: "Song Lyrics Exercise", type: "worksheet", stage: "Extra", topic: "Music", date: "2026-03-14", size: "650 KB" },
 ];
 
 export const STUDENT_PACKAGES: StudentPackage[] = [
