@@ -17,6 +17,7 @@ import StudentNotices from "./pages/student/StudentNotices";
 import StudentPayments from "./pages/student/StudentPayments";
 import StudentProfile from "./pages/student/StudentProfile";
 import TeacherSchedule from "./pages/teacher/TeacherSchedule";
+import TeacherStudents from "./pages/teacher/TeacherStudents";
 import TeacherLessonDetail from "./pages/teacher/TeacherLessonDetail";
 import TeacherPostClass from "./pages/teacher/TeacherPostClass";
 import AdminFinance from "./pages/admin/AdminFinance";
@@ -41,6 +42,7 @@ const App = () => (
             <Route path="/student/profile" element={<StudentProfile />} />
             <Route path="/teacher" element={<TeacherDashboard />} />
             <Route path="/teacher/schedule" element={<TeacherSchedule />} />
+            <Route path="/teacher/students" element={<TeacherStudents />} />
             <Route path="/teacher/lesson/:lessonId" element={<TeacherLessonDetail />} />
             <Route path="/teacher/post-class" element={<TeacherPostClass />} />
             <Route path="/teacher/materials" element={<MaterialsManager />} />
