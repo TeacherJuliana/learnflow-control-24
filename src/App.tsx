@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
+import LoginPage from "./pages/LoginPage";
 import NotFound from "./pages/NotFound";
 import StudentDashboard from "./pages/student/StudentDashboard";
 import StudentClasses from "./pages/student/StudentClasses";
@@ -34,6 +35,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/student" element={<StudentDashboard />} />
             <Route path="/student/classes" element={<StudentClasses />} />
             <Route path="/student/materials" element={<StudentMaterials />} />

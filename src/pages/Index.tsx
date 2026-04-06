@@ -1,5 +1,5 @@
-import LoginPage from "./LoginPage";
+import LandingPage from "./LandingPage";
 
-const Index = () => <LoginPage />;
+const Index = () => <LandingPage />;
 
 export default Index;
