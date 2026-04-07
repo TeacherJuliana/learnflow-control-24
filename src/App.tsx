@@ -22,6 +22,7 @@ import TeacherStudents from "./pages/teacher/TeacherStudents";
 import TeacherLessonDetail from "./pages/teacher/TeacherLessonDetail";
 import TeacherPostClass from "./pages/teacher/TeacherPostClass";
 import AdminFinance from "./pages/admin/AdminFinance";
+import AdminTeachers from "./pages/admin/AdminTeachers";
 import MaterialsManager from "./pages/shared/MaterialsManager";
 
 const queryClient = new QueryClient();
