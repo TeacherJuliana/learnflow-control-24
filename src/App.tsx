@@ -22,6 +22,7 @@ import TeacherStudents from "./pages/teacher/TeacherStudents";
 import TeacherLessonDetail from "./pages/teacher/TeacherLessonDetail";
 import TeacherPostClass from "./pages/teacher/TeacherPostClass";
 import AdminFinance from "./pages/admin/AdminFinance";
+import AdminTeachers from "./pages/admin/AdminTeachers";
 import MaterialsManager from "./pages/shared/MaterialsManager";
 
 const queryClient = new QueryClient();
@@ -52,6 +53,7 @@ const App = () => (
             <Route path="/admin/students" element={<AdminStudents />} />
             <Route path="/admin/waiting-list" element={<AdminWaitingList />} />
             <Route path="/admin/materials" element={<MaterialsManager />} />
+            <Route path="/admin/teachers" element={<AdminTeachers />} />
             <Route path="/admin/finance" element={<AdminFinance />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
