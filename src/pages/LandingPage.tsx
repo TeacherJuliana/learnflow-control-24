@@ -6,6 +6,12 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const WHATSAPP_LINK = "https://wa.me/5500000000000?text=Olá! Gostaria de saber mais sobre as aulas de inglês.";
 
+const SOCIAL_LINKS = [
+  { icon: Instagram, href: "https://instagram.com/", label: "Instagram" },
+  { icon: Facebook, href: "https://facebook.com/", label: "Facebook" },
+  { icon: Youtube, href: "https://youtube.com/", label: "YouTube" },
+];
+
 const TESTIMONIALS = [
   {
     name: "Camila R.",
