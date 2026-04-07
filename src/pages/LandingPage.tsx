@@ -1,10 +1,16 @@
 import { useNavigate } from "react-router-dom";
-import { MessageCircle, Users, GraduationCap, Baby, CalendarCheck, Mic, ArrowRight } from "lucide-react";
+import { MessageCircle, Users, GraduationCap, Baby, CalendarCheck, Mic, ArrowRight, Instagram, Facebook, Youtube } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const WHATSAPP_LINK = "https://wa.me/5500000000000?text=Olá! Gostaria de saber mais sobre as aulas de inglês.";
+
+const SOCIAL_LINKS = [
+  { icon: Instagram, href: "https://instagram.com/", label: "Instagram" },
+  { icon: Facebook, href: "https://facebook.com/", label: "Facebook" },
+  { icon: Youtube, href: "https://youtube.com/", label: "YouTube" },
+];
 
 const TESTIMONIALS = [
   {
@@ -197,8 +203,22 @@ const LandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t py-6 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} EduFlow — Todos os direitos reservados.
+      <footer className="border-t py-8 text-center text-xs text-muted-foreground space-y-4">
+        <div className="flex items-center justify-center gap-4">
+          {SOCIAL_LINKS.map((social) => (
+            <a
+              key={social.label}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+              aria-label={social.label}
+            >
+              <social.icon className="w-5 h-5" />
+            </a>
+          ))}
+        </div>
+        <p>© {new Date().getFullYear()} EduFlow — Todos os direitos reservados.</p>
       </footer>
     </div>
   );
