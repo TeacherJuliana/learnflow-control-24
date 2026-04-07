@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { MessageCircle, Users, GraduationCap, Baby, CalendarCheck, Mic, ArrowRight } from "lucide-react";
+import { MessageCircle, Users, GraduationCap, Baby, CalendarCheck, Mic, ArrowRight, Instagram, Facebook, Youtube } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
