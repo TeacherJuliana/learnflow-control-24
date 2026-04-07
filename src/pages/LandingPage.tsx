@@ -203,8 +203,22 @@ const LandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t py-6 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} EduFlow — Todos os direitos reservados.
+      <footer className="border-t py-8 text-center text-xs text-muted-foreground space-y-4">
+        <div className="flex items-center justify-center gap-4">
+          {SOCIAL_LINKS.map((social) => (
+            <a
+              key={social.label}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+              aria-label={social.label}
+            >
+              <social.icon className="w-5 h-5" />
+            </a>
+          ))}
+        </div>
+        <p>© {new Date().getFullYear()} EduFlow — Todos os direitos reservados.</p>
       </footer>
     </div>
   );
