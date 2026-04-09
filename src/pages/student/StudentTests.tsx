@@ -10,8 +10,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Lock, CheckCircle2, XCircle, ChevronLeft, Trophy, AlertTriangle } from "lucide-react";
 import { MATERIAL_STAGES, type MaterialStage } from "@/data/studentPortal";
 import {
-  STAGE_TESTS, INITIAL_ATTEMPTS, PASSING_SCORE,
-  getStageStatus, getBestScore, getLatestAttempt, getTestForStage, gradeTest,
+  INITIAL_ATTEMPTS, PASSING_SCORE,
+  getStageStatus, getBestScore, getTestForStage, gradeTest,
   type TestAttempt, type StageTest
 } from "@/data/testSystem";
 
@@ -34,7 +34,7 @@ const StudentTests = () => {
 
   const passedCount = useMemo(() =>
     testableStages.filter((s) => getStageStatus(s, attempts, STUDENT_ID) === "passed").length
-  , [attempts]);
+  , [attempts, testableStages]);
 
   const startTest = (stage: MaterialStage) => {
     const test = getTestForStage(stage);

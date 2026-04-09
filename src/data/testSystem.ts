@@ -1,4 +1,4 @@
-import { MATERIAL_STAGES, type MaterialStage } from "./studentPortal";
+import { type MaterialStage } from "./studentPortal";
 
 export type QuestionType = "multiple_choice" | "open";
 

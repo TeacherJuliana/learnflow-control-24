@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,13 +10,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Search, Plus, Pencil, Trash2, Eye, CheckCircle2, XCircle, Unlock } from "lucide-react";
+import { Search, Plus, Pencil, Trash2, Eye, CheckCircle2, Unlock } from "lucide-react";
 import { MATERIAL_STAGES, type MaterialStage } from "@/data/studentPortal";
 import {
   STAGE_TESTS, INITIAL_ATTEMPTS, PASSING_SCORE,
   type StageTest, type TestQuestion, type TestAttempt, type QuestionType,
-  getBestScore, getLatestAttempt
+  getBestScore
 } from "@/data/testSystem";
 
 const MOCK_STUDENTS = [
