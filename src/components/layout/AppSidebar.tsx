@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import {
   LayoutDashboard, Users, BookOpen, CreditCard, BarChart3,
   Calendar, ClipboardCheck, LogOut, GraduationCap, FileText,
-  Bell, Settings, Clock, User
+  Bell, Settings, Clock, User, PenTool
 } from "lucide-react";
 
 const NAV_ITEMS: Record<UserRole, { label: string; path: string; icon: React.ElementType }[]> = {
@@ -13,6 +13,7 @@ const NAV_ITEMS: Record<UserRole, { label: string; path: string; icon: React.Ele
     { label: "Lista de Espera", path: "/admin/waiting-list", icon: Clock },
     { label: "Teachers", path: "/admin/teachers", icon: GraduationCap },
     { label: "Materiais", path: "/admin/materials", icon: FileText },
+    { label: "Testes", path: "/admin/tests", icon: PenTool },
     { label: "Financeiro", path: "/admin/finance", icon: CreditCard },
     { label: "Relatórios", path: "/admin/reports", icon: BarChart3 },
     { label: "Configurações", path: "/admin/settings", icon: Settings },
@@ -22,12 +23,14 @@ const NAV_ITEMS: Record<UserRole, { label: string; path: string; icon: React.Ele
     { label: "Agenda", path: "/teacher/schedule", icon: Calendar },
     { label: "Alunos", path: "/teacher/students", icon: Users },
     { label: "Materiais", path: "/teacher/materials", icon: FileText },
+    { label: "Testes", path: "/teacher/tests", icon: PenTool },
     { label: "Pós-Aula", path: "/teacher/post-class", icon: ClipboardCheck },
   ],
   student: [
     { label: "Dashboard", path: "/student", icon: LayoutDashboard },
     { label: "Aulas", path: "/student/classes", icon: BookOpen },
     { label: "Materiais", path: "/student/materials", icon: FileText },
+    { label: "Testes", path: "/student/tests", icon: PenTool },
     { label: "Avisos", path: "/student/notices", icon: Bell },
     { label: "Pagamentos", path: "/student/payments", icon: CreditCard },
     { label: "Perfil", path: "/student/profile", icon: User },

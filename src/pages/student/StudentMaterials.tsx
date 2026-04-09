@@ -3,9 +3,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, Download, Search, BookOpen, Headphones, Video, File, Image, ExternalLink, ChevronLeft } from "lucide-react";
+import { FileText, Download, Search, BookOpen, Headphones, Video, File, Image, ExternalLink, ChevronLeft, Lock } from "lucide-react";
 import { useState, useMemo } from "react";
 import { STUDENT_MATERIALS, MATERIAL_STAGES, type MaterialType, type MaterialStage, getUpcomingClasses } from "@/data/studentPortal";
+import { INITIAL_ATTEMPTS, getUnlockedStages } from "@/data/testSystem";
 
 const TYPE_CONFIG: Record<MaterialType, { label: string; icon: React.ElementType; color: string }> = {
   reading: { label: "Reading", icon: BookOpen, color: "bg-primary/10 text-primary" },
@@ -28,6 +29,7 @@ const StudentMaterials = () => {
   const [activeTab, setActiveTab] = useState("all");
   const [selectedStage, setSelectedStage] = useState<MaterialStage | null>(null);
   const nextClass = getUpcomingClasses()[0];
+  const unlockedStages = useMemo(() => getUnlockedStages(INITIAL_ATTEMPTS, "joao"), []);
 
   const stageCounts = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -69,22 +71,30 @@ const StudentMaterials = () => {
         </div>
 
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {MATERIAL_STAGES.map((stage) => (
-            <button
-              key={stage}
-              onClick={() => setSelectedStage(stage)}
-              className="flex items-center gap-4 p-5 rounded-lg border bg-card hover:bg-accent/50 hover:border-primary/30 transition-all text-left group"
-            >
-              <span className="text-2xl">{STAGE_EMOJI[stage] ?? "📘"}</span>
-              <div className="flex-1 min-w-0">
-                <p className="font-semibold text-sm group-hover:text-primary transition-colors">{stage}</p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  {stageCounts[stage]} {stageCounts[stage] === 1 ? "material" : "materiais"}
-                </p>
-              </div>
-              <ChevronLeft className="w-4 h-4 text-muted-foreground rotate-180 group-hover:translate-x-0.5 transition-transform" />
-            </button>
-          ))}
+          {MATERIAL_STAGES.map((stage) => {
+            const isLocked = !unlockedStages.has(stage);
+            return (
+              <button
+                key={stage}
+                onClick={() => !isLocked && setSelectedStage(stage)}
+                disabled={isLocked}
+                className={`flex items-center gap-4 p-5 rounded-lg border bg-card text-left group transition-all ${isLocked ? "opacity-50 cursor-not-allowed" : "hover:bg-accent/50 hover:border-primary/30"}`}
+              >
+                <span className="text-2xl">{isLocked ? "🔒" : (STAGE_EMOJI[stage] ?? "📘")}</span>
+                <div className="flex-1 min-w-0">
+                  <p className={`font-semibold text-sm ${!isLocked ? "group-hover:text-primary" : ""} transition-colors`}>{stage}</p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {isLocked ? "Complete o stage anterior" : `${stageCounts[stage]} ${stageCounts[stage] === 1 ? "material" : "materiais"}`}
+                  </p>
+                </div>
+                {isLocked ? (
+                  <Lock className="w-4 h-4 text-muted-foreground" />
+                ) : (
+                  <ChevronLeft className="w-4 h-4 text-muted-foreground rotate-180 group-hover:translate-x-0.5 transition-transform" />
+                )}
+              </button>
+            );
+          })}
         </div>
       </DashboardLayout>
     );

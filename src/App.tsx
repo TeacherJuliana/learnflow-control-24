@@ -23,7 +23,9 @@ import TeacherLessonDetail from "./pages/teacher/TeacherLessonDetail";
 import TeacherPostClass from "./pages/teacher/TeacherPostClass";
 import AdminFinance from "./pages/admin/AdminFinance";
 import AdminTeachers from "./pages/admin/AdminTeachers";
+import AdminTests from "./pages/admin/AdminTests";
 import MaterialsManager from "./pages/shared/MaterialsManager";
+import StudentTests from "./pages/student/StudentTests";
 
 const queryClient = new QueryClient();
 
@@ -43,17 +45,20 @@ const App = () => (
             <Route path="/student/notices" element={<StudentNotices />} />
             <Route path="/student/payments" element={<StudentPayments />} />
             <Route path="/student/profile" element={<StudentProfile />} />
+            <Route path="/student/tests" element={<StudentTests />} />
             <Route path="/teacher" element={<TeacherDashboard />} />
             <Route path="/teacher/schedule" element={<TeacherSchedule />} />
             <Route path="/teacher/students" element={<TeacherStudents />} />
             <Route path="/teacher/lesson/:lessonId" element={<TeacherLessonDetail />} />
             <Route path="/teacher/post-class" element={<TeacherPostClass />} />
             <Route path="/teacher/materials" element={<MaterialsManager />} />
+            <Route path="/teacher/tests" element={<AdminTests />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/students" element={<AdminStudents />} />
             <Route path="/admin/waiting-list" element={<AdminWaitingList />} />
             <Route path="/admin/materials" element={<MaterialsManager />} />
             <Route path="/admin/teachers" element={<AdminTeachers />} />
+            <Route path="/admin/tests" element={<AdminTests />} />
             <Route path="/admin/finance" element={<AdminFinance />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
