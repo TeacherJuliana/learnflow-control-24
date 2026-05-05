@@ -2,30 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 99%;
-    --foreground: 220 20% 10%;
+    --background: 30 33% 98%;
+    --foreground: 25 20% 18%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 20% 10%;
+    --card-foreground: 25 20% 18%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 10%;
+    --popover-foreground: 25 20% 18%;
 
-    --primary: 220 90% 56%;
+    --primary: 345 45% 62%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 220 20% 10%;
+    --primary-soft: 345 60% 92%;
+    --blush: 12 60% 92%;
+    --sand: 35 40% 94%;
+    --cream: 38 50% 96%;
 
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 10% 46%;
+    --secondary: 30 25% 94%;
+    --secondary-foreground: 25 20% 18%;
 
-    --accent: 220 14% 93%;
-    --accent-foreground: 220 20% 10%;
+    --muted: 30 20% 95%;
+    --muted-foreground: 25 12% 45%;
+
+    --accent: 12 50% 90%;
+    --accent-foreground: 25 20% 18%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
@@ -36,9 +41,9 @@
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 220 90% 56%;
+    --border: 30 20% 88%;
+    --input: 30 20% 88%;
+    --ring: 345 45% 62%;
 
     --radius: 0.5rem;
 
@@ -99,17 +104,21 @@
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
+
+  .font-serif {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
 }
 
 @layer components {
   .stat-card {
     @apply bg-card rounded-lg border p-5 transition-shadow hover:shadow-sm;
   }
-  
+
   .page-header {
     @apply text-2xl font-semibold tracking-tight text-foreground;
   }
-  
+
   .page-subtitle {
     @apply text-sm text-muted-foreground mt-1;
   }
@@ -125,4 +134,11 @@
   .sidebar-link-inactive {
     @apply text-[hsl(var(--sidebar-fg))] hover:bg-[hsl(var(--sidebar-hover))] hover:text-[hsl(var(--sidebar-fg-active))];
   }
+}
+
+@layer utilities {
+  .bg-cream { background-color: hsl(var(--cream)); }
+  .bg-sand { background-color: hsl(var(--sand)); }
+  .bg-blush { background-color: hsl(var(--blush)); }
+  .bg-primary-soft { background-color: hsl(var(--primary-soft)); }
 }
