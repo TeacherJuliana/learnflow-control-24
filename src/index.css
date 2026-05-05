@@ -104,17 +104,21 @@
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
+
+  .font-serif {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
 }
 
 @layer components {
   .stat-card {
     @apply bg-card rounded-lg border p-5 transition-shadow hover:shadow-sm;
   }
-  
+
   .page-header {
     @apply text-2xl font-semibold tracking-tight text-foreground;
   }
-  
+
   .page-subtitle {
     @apply text-sm text-muted-foreground mt-1;
   }
@@ -130,4 +134,11 @@
   .sidebar-link-inactive {
     @apply text-[hsl(var(--sidebar-fg))] hover:bg-[hsl(var(--sidebar-hover))] hover:text-[hsl(var(--sidebar-fg-active))];
   }
+}
+
+@layer utilities {
+  .bg-cream { background-color: hsl(var(--cream)); }
+  .bg-sand { background-color: hsl(var(--sand)); }
+  .bg-blush { background-color: hsl(var(--blush)); }
+  .bg-primary-soft { background-color: hsl(var(--primary-soft)); }
 }
