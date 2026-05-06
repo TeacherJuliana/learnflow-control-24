@@ -2,28 +2,161 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   MessageCircle, Users, GraduationCap, Baby, Mic, ArrowRight,
-  Instagram, Facebook, Youtube, Sparkles, BookOpen, Heart,
+  Instagram, Sparkles, BookOpen, Heart,
   Briefcase, LifeBuoy, Star, ChevronLeft, ChevronRight, Quote, Languages,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger, DialogFooter,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { toast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
 import teacherPortrait from "@/assets/teacher-portrait.jpg";
+import engageLogo from "@/assets/engage-logo.jpeg";
 
 const WHATSAPP_LINK = "https://wa.me/5500000000000";
 const INSTAGRAM_HANDLE = "@engage.english";
+const INSTAGRAM_URL = "https://instagram.com/";
 
-const SOCIAL_LINKS = [
-  { icon: Instagram, href: "https://instagram.com/", label: "Instagram" },
-  { icon: Facebook, href: "https://facebook.com/", label: "Facebook" },
-  { icon: Youtube, href: "https://youtube.com/", label: "YouTube" },
-];
+/* ---------------- Interest form (Dialog) ---------------- */
+type InterestDialogProps = {
+  trigger: React.ReactNode;
+};
 
+const InterestDialog = ({ trigger }: InterestDialogProps) => {
+  const { t } = useLanguage();
+  const [open, setOpen] = useState(false);
+  const [form, setForm] = useState({
+    name: "", city: "", phone: "", level: "", source: "", referral: "", reason: "",
+  });
+
+  const set = (k: keyof typeof form, v: string) => setForm((p) => ({ ...p, [k]: v }));
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.name || !form.phone) {
+      toast({
+        title: t({ pt: "Preencha nome e telefone", en: "Please fill name and phone" }),
+        variant: "destructive",
+      });
+      return;
+    }
+    toast({
+      title: t({ pt: "Recebemos seus dados! 💛", en: "We got your info! 💛" }),
+      description: t({
+        pt: "Em breve entraremos em contato. Quer adiantar? Fale com a gente no WhatsApp.",
+        en: "We'll be in touch soon. Want to chat now? Message us on WhatsApp.",
+      }),
+    });
+    setOpen(false);
+    setForm({ name: "", city: "", phone: "", level: "", source: "", referral: "", reason: "" });
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
+      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="font-serif text-2xl">
+            {t({ pt: "Tem interesse?", en: "Interested?" })}
+          </DialogTitle>
+          <DialogDescription>
+            {t({
+              pt: "Deixe seus dados que entramos em contato com carinho.",
+              en: "Leave your details and we'll reach out warmly.",
+            })}
+          </DialogDescription>
+        </DialogHeader>
+
+        <form onSubmit={submit} className="space-y-4 pt-2">
+          <div className="grid sm:grid-cols-2 gap-3">
+            <div className="space-y-1.5">
+              <Label htmlFor="name">{t({ pt: "Nome *", en: "Name *" })}</Label>
+              <Input id="name" maxLength={100} value={form.name} onChange={(e) => set("name", e.target.value)} required />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="phone">{t({ pt: "Telefone *", en: "Phone *" })}</Label>
+              <Input id="phone" type="tel" maxLength={30} value={form.phone} onChange={(e) => set("phone", e.target.value)} required />
+            </div>
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="city">{t({ pt: "Cidade onde mora", en: "City you live in" })}</Label>
+            <Input id="city" maxLength={100} value={form.city} onChange={(e) => set("city", e.target.value)} />
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-3">
+            <div className="space-y-1.5">
+              <Label>{t({ pt: "Nível de inglês", en: "English level" })}</Label>
+              <Select value={form.level} onValueChange={(v) => set("level", v)}>
+                <SelectTrigger><SelectValue placeholder={t({ pt: "Selecione", en: "Select" })} /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="beginner">{t({ pt: "Iniciante", en: "Beginner" })}</SelectItem>
+                  <SelectItem value="basic">{t({ pt: "Básico", en: "Basic" })}</SelectItem>
+                  <SelectItem value="intermediate">{t({ pt: "Intermediário", en: "Intermediate" })}</SelectItem>
+                  <SelectItem value="advanced">{t({ pt: "Avançado", en: "Advanced" })}</SelectItem>
+                  <SelectItem value="unsure">{t({ pt: "Não sei dizer", en: "Not sure" })}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1.5">
+              <Label>{t({ pt: "Como chegou até nós?", en: "How did you find us?" })}</Label>
+              <Select value={form.source} onValueChange={(v) => set("source", v)}>
+                <SelectTrigger><SelectValue placeholder={t({ pt: "Selecione", en: "Select" })} /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="instagram">Instagram</SelectItem>
+                  <SelectItem value="google">Google</SelectItem>
+                  <SelectItem value="referral">{t({ pt: "Indicação", en: "Referral" })}</SelectItem>
+                  <SelectItem value="other">{t({ pt: "Outro", en: "Other" })}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="referral">{t({ pt: "Teve indicação? De quem?", en: "Were you referred? By whom?" })}</Label>
+            <Input id="referral" maxLength={100} value={form.referral} onChange={(e) => set("referral", e.target.value)} />
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="reason">{t({ pt: "Motivo para iniciar o inglês", en: "Why do you want to start English?" })}</Label>
+            <Textarea id="reason" maxLength={500} rows={3} value={form.reason} onChange={(e) => set("reason", e.target.value)} />
+          </div>
+
+          <DialogFooter className="flex-col sm:flex-row gap-2 pt-2">
+            <Button type="button" variant="outline" className="rounded-full gap-2" asChild>
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+                <MessageCircle className="w-4 h-4" />
+                {t({ pt: "Mais informações no WhatsApp", en: "More info on WhatsApp" })}
+              </a>
+            </Button>
+            <Button type="submit" className="rounded-full">
+              {t({ pt: "Enviar", en: "Send" })}
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+/* ---------------- Page ---------------- */
 const LandingPage = () => {
   const navigate = useNavigate();
   const { lang, setLang, t } = useLanguage();
   const [active, setActive] = useState(0);
+
+  const TEAM = [
+    { name: "Mariana Lopes", role: t({ pt: "Especialista em conversação", en: "Conversation specialist" }), initials: "ML" },
+    { name: "Bruno Carvalho", role: t({ pt: "Inglês para negócios", en: "Business English" }), initials: "BC" },
+    { name: "Helena Costa", role: t({ pt: "Aulas KIDS", en: "KIDS classes" }), initials: "HC" },
+  ];
 
   const SLIDES = [
     {
@@ -33,8 +166,8 @@ const LandingPage = () => {
         <>
           <p className="text-muted-foreground leading-relaxed">
             {t({
-              pt: <>Eu sou <span className="font-medium text-foreground">Sophia</span>, o coração e a voz por trás da ENGage. Há mais de uma década ajudo alunos a pararem de traduzir na cabeça e começarem a <em>pensar</em> em inglês.</>,
-              en: <>I'm <span className="font-medium text-foreground">Sophia</span>, the heart and voice behind ENGage. For over a decade I've been helping students stop translating in their heads and start <em>thinking</em> in English.</>,
+              pt: <>Eu sou <span className="font-medium text-foreground">Juliana de Andrade</span>, o coração e a voz por trás da ENGage. Há mais de uma década ajudo alunos a pararem de traduzir na cabeça e começarem a <em>pensar</em> em inglês.</>,
+              en: <>I'm <span className="font-medium text-foreground">Juliana de Andrade</span>, the heart and voice behind ENGage. For over a decade I've been helping students stop translating in their heads and start <em>thinking</em> in English.</>,
             })}
           </p>
           <p className="text-muted-foreground leading-relaxed">
@@ -52,8 +185,56 @@ const LandingPage = () => {
         <div className="relative aspect-[4/5] w-full max-w-sm mx-auto">
           <div className="absolute -inset-4 bg-primary-soft rounded-[2rem] -rotate-3" />
           <div className="absolute -inset-2 bg-blush rounded-[2rem] rotate-2" />
-          <img src={teacherPortrait} alt="Sophia" width={768} height={896} loading="lazy"
+          <img src={teacherPortrait} alt="Juliana de Andrade" width={768} height={896} loading="lazy"
             className="relative rounded-[2rem] w-full h-full object-cover shadow-xl" />
+        </div>
+      ),
+    },
+    {
+      eyebrow: t({ pt: "Nosso time", en: "Our team" }),
+      title: t({ pt: "Conheça os teachers da ENGage", en: "Meet the ENGage teachers" }),
+      body: (
+        <>
+          <p className="text-muted-foreground leading-relaxed">
+            {t({
+              pt: "Além da Juliana, contamos com três professores cuidadosamente escolhidos — cada um com uma especialidade diferente para que você encontre a combinação ideal.",
+              en: "Beyond Juliana, we have three carefully chosen teachers — each with a different specialty so you can find the perfect match.",
+            })}
+          </p>
+          <div className="space-y-3 pt-2">
+            {TEAM.map((teacher) => (
+              <div key={teacher.name} className="flex items-center gap-3 p-3 rounded-2xl bg-cream/60">
+                <Avatar className="h-11 w-11">
+                  <AvatarFallback className="bg-primary-soft text-primary text-sm">{teacher.initials}</AvatarFallback>
+                </Avatar>
+                <div>
+                  <p className="font-medium text-sm text-foreground">{teacher.name}</p>
+                  <p className="text-xs text-muted-foreground">{teacher.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      ),
+      visual: (
+        <div className="relative max-w-sm mx-auto">
+          <div className="aspect-square rounded-[2rem] bg-gradient-to-br from-blush via-cream to-primary-soft p-8 shadow-xl flex flex-col justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-widest text-primary font-medium">
+                {t({ pt: "Teacher's team", en: "Teacher's team" })}
+              </p>
+              <p className="font-serif text-3xl mt-3 leading-tight">
+                {t({ pt: <>Quatro vozes,<br /><em>uma missão.</em></>, en: <>Four voices,<br /><em>one mission.</em></> })}
+              </p>
+            </div>
+            <div className="flex -space-x-3">
+              {[...TEAM, { name: "Juliana de Andrade", initials: "JA", role: "" }].map((m) => (
+                <Avatar key={m.name} className="h-12 w-12 border-2 border-white">
+                  <AvatarFallback className="bg-white text-primary text-xs font-semibold">{m.initials}</AvatarFallback>
+                </Avatar>
+              ))}
+            </div>
+          </div>
         </div>
       ),
     },
@@ -217,12 +398,12 @@ const LandingPage = () => {
   const TESTIMONIALS = t({
     pt: [
       { name: "Camila R.", text: "A ENGage transformou meu jeito de aprender inglês. Em poucos meses já falo com confiança." },
-      { name: "Pedro M.", text: "As aulas da Sophia são acolhedoras e divertidas. Eu espero ansioso por cada uma." },
+      { name: "Pedro M.", text: "As aulas da Juliana são acolhedoras e divertidas. Eu espero ansioso por cada uma." },
       { name: "Ana L.", text: "Minha filha adora as aulas KIDS — corre para o computador toda semana!" },
     ],
     en: [
       { name: "Camila R.", text: "ENGage changed how I learn English. In a few months I'm speaking with real confidence." },
-      { name: "Pedro M.", text: "Sophia's classes are warm and fun. I actually look forward to every lesson." },
+      { name: "Pedro M.", text: "Juliana's classes are warm and fun. I actually look forward to every lesson." },
       { name: "Ana L.", text: "My daughter adores the KIDS classes — she runs to her laptop every week!" },
     ],
   });
@@ -256,19 +437,25 @@ const LandingPage = () => {
       {/* Nav */}
       <header className="absolute top-0 inset-x-0 z-20">
         <div className="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
-          <a href="/" className="font-serif text-2xl tracking-tight">
-            EN<span className="text-primary">gage</span>
+          <a href="/" className="flex items-center gap-2.5">
+            <img src={engageLogo} alt="ENGage" className="h-10 w-10 object-contain rounded-full" />
+            <div className="leading-tight">
+              <p className="font-serif text-xl tracking-tight">EN<span className="text-primary">gage</span></p>
+              <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Juliana de Andrade</p>
+            </div>
           </a>
           <div className="flex items-center gap-3">
             <LangToggle />
             <Button variant="ghost" size="sm" onClick={() => navigate("/login")}>
               {t({ pt: "Entrar", en: "Sign in" })}
             </Button>
-            <Button size="sm" className="rounded-full" asChild>
-              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                {t({ pt: "Inscreva-se", en: "Join now" })}
-              </a>
-            </Button>
+            <InterestDialog
+              trigger={
+                <Button size="sm" className="rounded-full">
+                  {t({ pt: "Inscreva-se", en: "Join now" })}
+                </Button>
+              }
+            />
           </div>
         </div>
       </header>
@@ -284,6 +471,9 @@ const LandingPage = () => {
             <Sparkles className="w-3.5 h-3.5 text-primary" />
             {t({ pt: "Inglês que parece um abraço", en: "English that feels like home" })}
           </span>
+          <div className="flex justify-center">
+            <img src={engageLogo} alt="ENGage — Juliana de Andrade" className="h-28 w-28 md:h-32 md:w-32 object-contain rounded-full shadow-md" />
+          </div>
           <h1 className="font-serif text-5xl md:text-7xl leading-[1.05] tracking-tight">
             {t({
               pt: <>Fale inglês<br /><span className="italic text-primary">com confiança.</span></>,
@@ -297,12 +487,14 @@ const LandingPage = () => {
             })}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-            <Button size="lg" className="rounded-full gap-2 px-7 shadow-md" asChild>
-              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="w-4 h-4" />
-                {t({ pt: "Fale no WhatsApp", en: "Chat on WhatsApp" })}
-              </a>
-            </Button>
+            <InterestDialog
+              trigger={
+                <Button size="lg" className="rounded-full gap-2 px-7 shadow-md">
+                  <Heart className="w-4 h-4" />
+                  {t({ pt: "Tem interesse?", en: "Interested?" })}
+                </Button>
+              }
+            />
             <Button variant="ghost" size="lg" className="rounded-full gap-2" onClick={() => navigate("/login")}>
               {t({ pt: "Acessar a plataforma", en: "Enter the platform" })}
               <ArrowRight className="w-4 h-4" />
@@ -396,7 +588,7 @@ const LandingPage = () => {
             </p>
           </div>
           <Button variant="outline" className="rounded-full self-start md:self-auto" asChild>
-            <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer">
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
               <Instagram className="w-4 h-4" /> {t({ pt: "Seguir no Instagram", en: "Follow on Instagram" })}
             </a>
           </Button>
@@ -404,7 +596,7 @@ const LandingPage = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
           {INSTAGRAM_POSTS.map((p, i) => (
-            <a key={i} href="https://instagram.com/" target="_blank" rel="noopener noreferrer"
+            <a key={i} href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"
               className="group relative aspect-square rounded-2xl overflow-hidden block">
               <div className={`absolute inset-0 bg-gradient-to-br ${p.gradient} transition-transform duration-500 group-hover:scale-110`} />
               <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/40 transition-colors flex items-center justify-center p-4">
@@ -429,16 +621,18 @@ const LandingPage = () => {
           </h2>
           <p className="text-muted-foreground max-w-lg mx-auto">
             {t({
-              pt: "Mande uma mensagem e vamos planejar sua primeira aula juntas. Sem pressão — só um oi acolhedor.",
-              en: "Send a message and let's plan your first class together. No pressure — just a warm hello.",
+              pt: "Deixe seus dados e vamos planejar sua primeira aula juntas. Sem pressão — só um oi acolhedor.",
+              en: "Leave your details and let's plan your first class together. No pressure — just a warm hello.",
             })}
           </p>
-          <Button size="lg" className="rounded-full gap-2 px-8 shadow-md" asChild>
-            <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-              <MessageCircle className="w-5 h-5" />
-              {t({ pt: "Começar a conversa", en: "Start the conversation" })}
-            </a>
-          </Button>
+          <InterestDialog
+            trigger={
+              <Button size="lg" className="rounded-full gap-2 px-8 shadow-md">
+                <Heart className="w-5 h-5" />
+                {t({ pt: "Tem interesse?", en: "Interested?" })}
+              </Button>
+            }
+          />
         </div>
       </section>
 
@@ -446,18 +640,16 @@ const LandingPage = () => {
       <footer className="border-t border-border/60 py-10 text-center text-xs text-muted-foreground space-y-4">
         <p className="font-serif text-lg text-foreground">EN<span className="text-primary">gage</span></p>
         <div className="flex items-center justify-center gap-3">
-          {SOCIAL_LINKS.map((s) => (
-            <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}
-              className="w-10 h-10 rounded-full bg-primary-soft flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors">
-              <s.icon className="w-4 h-4" />
-            </a>
-          ))}
+          <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+            className="w-10 h-10 rounded-full bg-primary-soft flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors">
+            <Instagram className="w-4 h-4" />
+          </a>
         </div>
         <div className="flex items-center justify-center gap-2">
           <Languages className="w-3 h-3" />
           <LangToggle />
         </div>
-        <p>© {new Date().getFullYear()} ENGage — {t({ pt: "Feito com carinho.", en: "Made with love." })}</p>
+        <p>© {new Date().getFullYear()} ENGage — Juliana de Andrade — {t({ pt: "Feito com carinho.", en: "Made with love." })}</p>
       </footer>
     </div>
   );
