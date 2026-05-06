@@ -27,6 +27,9 @@ import AdminTeachers from "./pages/admin/AdminTeachers";
 import AdminTests from "./pages/admin/AdminTests";
 import MaterialsManager from "./pages/shared/MaterialsManager";
 import StudentTests from "./pages/student/StudentTests";
+import Inbox from "./pages/shared/Inbox";
+import Announcements from "./pages/shared/Announcements";
+import { MessagingProvider } from "@/contexts/MessagingContext";
 
 const queryClient = new QueryClient();
 
@@ -37,8 +40,11 @@ const App = () => (
       <Sonner />
       <LanguageProvider>
       <AuthProvider>
+        <MessagingProvider>
         <BrowserRouter>
           <Routes>
+            <Route path="/inbox" element={<Inbox />} />
+            <Route path="/announcements" element={<Announcements />} />
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/student" element={<StudentDashboard />} />
@@ -65,6 +71,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
+        </MessagingProvider>
       </AuthProvider>
       </LanguageProvider>
     </TooltipProvider>
