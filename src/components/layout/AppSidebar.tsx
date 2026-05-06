@@ -1,10 +1,16 @@
 import { useAuth, UserRole } from "@/contexts/AuthContext";
+import { useMessaging } from "@/contexts/MessagingContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   LayoutDashboard, Users, BookOpen, CreditCard, BarChart3,
   Calendar, ClipboardCheck, LogOut, GraduationCap, FileText,
-  Bell, Settings, Clock, User, PenTool
+  Bell, Settings, Clock, User, PenTool, MessageCircle, Megaphone
 } from "lucide-react";
+
+const COMMS = [
+  { label: "Inbox", path: "/inbox", icon: MessageCircle, key: "inbox" as const },
+  { label: "Avisos", path: "/announcements", icon: Megaphone, key: "announcements" as const },
+];
 
 const NAV_ITEMS: Record<UserRole, { label: string; path: string; icon: React.ElementType }[]> = {
   admin: [
@@ -45,12 +51,15 @@ const ROLE_LABELS: Record<UserRole, string> = {
 
 const AppSidebar = () => {
   const { user, logout } = useAuth();
+  const { unreadMessagesFor, unreadAnnouncementsFor } = useMessaging();
   const navigate = useNavigate();
   const location = useLocation();
 
   if (!user) return null;
 
   const items = NAV_ITEMS[user.role];
+  const unreadInbox = unreadMessagesFor(user.id);
+  const unreadAnn = unreadAnnouncementsFor(user.id);
 
   return (
     <aside className="w-64 min-h-screen flex flex-col bg-[hsl(var(--sidebar-bg))] border-r border-[hsl(var(--sidebar-border))]">
@@ -61,7 +70,7 @@ const AppSidebar = () => {
         <p className="text-xs text-[hsl(var(--sidebar-fg))] mt-0.5">{ROLE_LABELS[user.role]}</p>
       </div>
 
-      <nav className="flex-1 p-3 space-y-1">
+      <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
         {items.map((item) => {
           const isActive = location.pathname === item.path;
           return (
@@ -75,6 +84,30 @@ const AppSidebar = () => {
             </button>
           );
         })}
+
+        <div className="pt-3 mt-3 border-t border-[hsl(var(--sidebar-border))] space-y-1">
+          {COMMS.map((item) => {
+            const isActive = location.pathname === item.path;
+            const badge = item.key === "inbox" ? unreadInbox : unreadAnn;
+            return (
+              <button
+                key={item.path}
+                onClick={() => navigate(item.path)}
+                className={`sidebar-link w-full justify-between ${isActive ? "sidebar-link-active" : "sidebar-link-inactive"}`}
+              >
+                <span className="flex items-center gap-2">
+                  <item.icon className="w-4 h-4" />
+                  {item.label}
+                </span>
+                {badge > 0 && (
+                  <span className="ml-auto bg-primary text-primary-foreground text-[10px] font-semibold rounded-full px-1.5 py-0.5 min-w-[18px] text-center">
+                    {badge}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
       </nav>
 
       <div className="p-3 border-t border-[hsl(var(--sidebar-border))]">
