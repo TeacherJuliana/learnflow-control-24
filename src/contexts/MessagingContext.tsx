@@ -136,11 +136,23 @@ export const MessagingProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const postAnnouncement: Ctx["postAnnouncement"] = useCallback((a) => {
-    setAnnouncements((prev) => [{ ...a, id: crypto.randomUUID(), timestamp: Date.now(), readBy: [a.authorId] }, ...prev]);
+    setAnnouncements((prev) => [{ ...a, id: crypto.randomUUID(), timestamp: Date.now(), readBy: [a.authorId], likedBy: [] }, ...prev]);
   }, []);
 
   const togglePin: Ctx["togglePin"] = useCallback((id) => {
     setAnnouncements((prev) => prev.map((a) => (a.id === id ? { ...a, pinned: !a.pinned } : a)));
+  }, []);
+
+  const toggleLike: Ctx["toggleLike"] = useCallback((id, meId) => {
+    setAnnouncements((prev) => prev.map((a) => {
+      if (a.id !== id) return a;
+      const has = a.likedBy.includes(meId);
+      return { ...a, likedBy: has ? a.likedBy.filter((x) => x !== meId) : [...a.likedBy, meId] };
+    }));
+  }, []);
+
+  const deleteAnnouncement: Ctx["deleteAnnouncement"] = useCallback((id) => {
+    setAnnouncements((prev) => prev.filter((a) => a.id !== id));
   }, []);
 
   const markAnnouncementRead: Ctx["markAnnouncementRead"] = useCallback((id, meId) => {
@@ -149,12 +161,23 @@ export const MessagingProvider = ({ children }: { children: ReactNode }) => {
     ));
   }, []);
 
+  const visibleAnnouncementsFor: Ctx["visibleAnnouncementsFor"] = useCallback((role) => {
+    return announcements.filter((a) =>
+      a.audience === "all" ||
+      (a.audience === "teachers" && (role === "teacher" || role === "admin")) ||
+      (a.audience === "students" && (role === "student" || role === "admin"))
+    );
+  }, [announcements]);
+
   const unreadMessagesFor = useCallback((meId: string) =>
     messages.filter((m) => m.senderId !== meId && !m.readBy.includes(meId) &&
       m.conversationId.split("__").includes(meId)).length, [messages]);
 
-  const unreadAnnouncementsFor = useCallback((meId: string) =>
-    announcements.filter((a) => !a.readBy.includes(meId)).length, [announcements]);
+  const unreadAnnouncementsFor = useCallback((meId: string) => {
+    const me = DIRECTORY.find((u) => u.id === meId);
+    if (!me) return 0;
+    return visibleAnnouncementsFor(me.role).filter((a) => !a.readBy.includes(meId)).length;
+  }, [visibleAnnouncementsFor]);
 
   const allowedContactsFor = useCallback((me: ChatUser) => {
     return DIRECTORY.filter((u) => u.id !== me.id).filter((u) => {
