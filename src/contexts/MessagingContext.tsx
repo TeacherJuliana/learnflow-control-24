@@ -85,9 +85,11 @@ const seedAnnouncements = (): Announcement[] => [
     authorName: "Admin",
     title: "Welcome to ENGage!",
     body: "Use this space to find platform updates, schedule changes and important reminders.",
+    audience: "all",
     pinned: true,
     timestamp: Date.now() - 86400_000,
     readBy: [],
+    likedBy: [],
   },
 ];
 
