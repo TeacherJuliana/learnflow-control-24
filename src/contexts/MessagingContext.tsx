@@ -51,11 +51,14 @@ interface Ctx {
   announcements: Announcement[];
   sendMessage: (toId: string, fromId: string, text: string, attachment?: Message["attachment"]) => void;
   markConversationRead: (otherId: string, meId: string) => void;
-  postAnnouncement: (a: Omit<Announcement, "id" | "timestamp" | "readBy">) => void;
+  postAnnouncement: (a: Omit<Announcement, "id" | "timestamp" | "readBy" | "likedBy">) => void;
   togglePin: (id: string) => void;
+  toggleLike: (id: string, meId: string) => void;
+  deleteAnnouncement: (id: string) => void;
   markAnnouncementRead: (id: string, meId: string) => void;
   unreadMessagesFor: (meId: string) => number;
   unreadAnnouncementsFor: (meId: string) => number;
+  visibleAnnouncementsFor: (role: UserRole) => Announcement[];
   conversationsFor: (meId: string) => { other: ChatUser; lastMessage?: Message; unread: number }[];
   allowedContactsFor: (me: ChatUser) => ChatUser[];
 }
