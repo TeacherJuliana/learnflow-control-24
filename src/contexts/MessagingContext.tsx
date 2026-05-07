@@ -17,6 +17,8 @@ export interface Message {
   readBy: string[];
 }
 
+export type AnnouncementAudience = "all" | "teachers" | "students";
+
 export interface Announcement {
   id: string;
   authorId: string;
@@ -24,9 +26,11 @@ export interface Announcement {
   title: string;
   body: string;
   imageUrl?: string;
+  audience: AnnouncementAudience;
   pinned: boolean;
   timestamp: number;
   readBy: string[];
+  likedBy: string[];
 }
 
 // Demo directory of users (matches AuthContext demo users + extras)
