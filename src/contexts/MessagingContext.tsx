@@ -204,7 +204,8 @@ export const MessagingProvider = ({ children }: { children: ReactNode }) => {
   return (
     <MessagingContext.Provider value={{
       directory: DIRECTORY, messages, announcements,
-      sendMessage, markConversationRead, postAnnouncement, togglePin, markAnnouncementRead,
+      sendMessage, markConversationRead, postAnnouncement, togglePin, toggleLike, deleteAnnouncement,
+      markAnnouncementRead, visibleAnnouncementsFor,
       unreadMessagesFor, unreadAnnouncementsFor, conversationsFor, allowedContactsFor,
     }}>
       {children}
