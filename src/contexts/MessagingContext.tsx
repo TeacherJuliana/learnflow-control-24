@@ -17,6 +17,8 @@ export interface Message {
   readBy: string[];
 }
 
+export type AnnouncementAudience = "all" | "teachers" | "students";
+
 export interface Announcement {
   id: string;
   authorId: string;
@@ -24,9 +26,11 @@ export interface Announcement {
   title: string;
   body: string;
   imageUrl?: string;
+  audience: AnnouncementAudience;
   pinned: boolean;
   timestamp: number;
   readBy: string[];
+  likedBy: string[];
 }
 
 // Demo directory of users (matches AuthContext demo users + extras)
@@ -47,11 +51,14 @@ interface Ctx {
   announcements: Announcement[];
   sendMessage: (toId: string, fromId: string, text: string, attachment?: Message["attachment"]) => void;
   markConversationRead: (otherId: string, meId: string) => void;
-  postAnnouncement: (a: Omit<Announcement, "id" | "timestamp" | "readBy">) => void;
+  postAnnouncement: (a: Omit<Announcement, "id" | "timestamp" | "readBy" | "likedBy">) => void;
   togglePin: (id: string) => void;
+  toggleLike: (id: string, meId: string) => void;
+  deleteAnnouncement: (id: string) => void;
   markAnnouncementRead: (id: string, meId: string) => void;
   unreadMessagesFor: (meId: string) => number;
   unreadAnnouncementsFor: (meId: string) => number;
+  visibleAnnouncementsFor: (role: UserRole) => Announcement[];
   conversationsFor: (meId: string) => { other: ChatUser; lastMessage?: Message; unread: number }[];
   allowedContactsFor: (me: ChatUser) => ChatUser[];
 }
@@ -78,9 +85,11 @@ const seedAnnouncements = (): Announcement[] => [
     authorName: "Admin",
     title: "Welcome to ENGage!",
     body: "Use this space to find platform updates, schedule changes and important reminders.",
+    audience: "all",
     pinned: true,
     timestamp: Date.now() - 86400_000,
     readBy: [],
+    likedBy: [],
   },
 ];
 
@@ -127,11 +136,23 @@ export const MessagingProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const postAnnouncement: Ctx["postAnnouncement"] = useCallback((a) => {
-    setAnnouncements((prev) => [{ ...a, id: crypto.randomUUID(), timestamp: Date.now(), readBy: [a.authorId] }, ...prev]);
+    setAnnouncements((prev) => [{ ...a, id: crypto.randomUUID(), timestamp: Date.now(), readBy: [a.authorId], likedBy: [] }, ...prev]);
   }, []);
 
   const togglePin: Ctx["togglePin"] = useCallback((id) => {
     setAnnouncements((prev) => prev.map((a) => (a.id === id ? { ...a, pinned: !a.pinned } : a)));
+  }, []);
+
+  const toggleLike: Ctx["toggleLike"] = useCallback((id, meId) => {
+    setAnnouncements((prev) => prev.map((a) => {
+      if (a.id !== id) return a;
+      const has = a.likedBy.includes(meId);
+      return { ...a, likedBy: has ? a.likedBy.filter((x) => x !== meId) : [...a.likedBy, meId] };
+    }));
+  }, []);
+
+  const deleteAnnouncement: Ctx["deleteAnnouncement"] = useCallback((id) => {
+    setAnnouncements((prev) => prev.filter((a) => a.id !== id));
   }, []);
 
   const markAnnouncementRead: Ctx["markAnnouncementRead"] = useCallback((id, meId) => {
@@ -140,12 +161,23 @@ export const MessagingProvider = ({ children }: { children: ReactNode }) => {
     ));
   }, []);
 
+  const visibleAnnouncementsFor: Ctx["visibleAnnouncementsFor"] = useCallback((role) => {
+    return announcements.filter((a) =>
+      a.audience === "all" ||
+      (a.audience === "teachers" && (role === "teacher" || role === "admin")) ||
+      (a.audience === "students" && (role === "student" || role === "admin"))
+    );
+  }, [announcements]);
+
   const unreadMessagesFor = useCallback((meId: string) =>
     messages.filter((m) => m.senderId !== meId && !m.readBy.includes(meId) &&
       m.conversationId.split("__").includes(meId)).length, [messages]);
 
-  const unreadAnnouncementsFor = useCallback((meId: string) =>
-    announcements.filter((a) => !a.readBy.includes(meId)).length, [announcements]);
+  const unreadAnnouncementsFor = useCallback((meId: string) => {
+    const me = DIRECTORY.find((u) => u.id === meId);
+    if (!me) return 0;
+    return visibleAnnouncementsFor(me.role).filter((a) => !a.readBy.includes(meId)).length;
+  }, [visibleAnnouncementsFor]);
 
   const allowedContactsFor = useCallback((me: ChatUser) => {
     return DIRECTORY.filter((u) => u.id !== me.id).filter((u) => {
@@ -172,7 +204,8 @@ export const MessagingProvider = ({ children }: { children: ReactNode }) => {
   return (
     <MessagingContext.Provider value={{
       directory: DIRECTORY, messages, announcements,
-      sendMessage, markConversationRead, postAnnouncement, togglePin, markAnnouncementRead,
+      sendMessage, markConversationRead, postAnnouncement, togglePin, toggleLike, deleteAnnouncement,
+      markAnnouncementRead, visibleAnnouncementsFor,
       unreadMessagesFor, unreadAnnouncementsFor, conversationsFor, allowedContactsFor,
     }}>
       {children}
