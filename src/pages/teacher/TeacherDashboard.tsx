@@ -1,5 +1,6 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import StatCard from "@/components/shared/StatCard";
+import RecentAnnouncements from "@/components/shared/RecentAnnouncements";
 import { Users, Calendar, BookOpen, CheckCircle, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
