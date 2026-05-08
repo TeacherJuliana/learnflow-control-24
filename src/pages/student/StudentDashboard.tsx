@@ -1,5 +1,6 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import StatCard from "@/components/shared/StatCard";
+import RecentAnnouncements from "@/components/shared/RecentAnnouncements";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Bell, CreditCard, Video, Package } from "lucide-react";
@@ -102,6 +103,8 @@ const StudentDashboard = () => {
             </table>
           </div>
       </div>
+
+      <RecentAnnouncements limit={3} />
     </DashboardLayout>
   );
 };
