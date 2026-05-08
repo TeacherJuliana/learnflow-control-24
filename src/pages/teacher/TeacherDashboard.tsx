@@ -57,6 +57,8 @@ const TeacherDashboard = () => {
           </div>
         ))}
       </div>
+
+      <RecentAnnouncements limit={3} />
     </DashboardLayout>
   );
 };

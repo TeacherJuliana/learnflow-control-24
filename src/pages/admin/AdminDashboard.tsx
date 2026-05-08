@@ -100,6 +100,8 @@ const AdminDashboard = () => (
         </div>
       </div>
     </div>
+
+    <RecentAnnouncements limit={3} />
   </DashboardLayout>
 );
 

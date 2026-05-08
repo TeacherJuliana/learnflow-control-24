@@ -103,6 +103,8 @@ const StudentDashboard = () => {
             </table>
           </div>
       </div>
+
+      <RecentAnnouncements limit={3} />
     </DashboardLayout>
   );
 };
