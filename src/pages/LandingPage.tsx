@@ -408,14 +408,6 @@ const LandingPage = () => {
     ],
   });
 
-  const INSTAGRAM_POSTS = [
-    { gradient: "from-primary-soft via-blush to-cream", caption: t({ pt: "5 frases para sua entrevista", en: "5 phrases for your next interview" }) },
-    { gradient: "from-cream to-primary-soft", caption: t({ pt: "Palavra da semana ✨", en: "Word of the week ✨" }) },
-    { gradient: "from-blush to-sand", caption: t({ pt: "Bastidores", en: "Behind the scenes" }) },
-    { gradient: "from-sand to-cream", caption: t({ pt: "Aluno em destaque 💛", en: "Student spotlight 💛" }) },
-    { gradient: "from-primary-soft to-sand", caption: t({ pt: "Dica de pronúncia", en: "Pronunciation tip" }) },
-    { gradient: "from-cream via-blush to-primary-soft", caption: t({ pt: "Conversa real em inglês", en: "Real talk in English" }) },
-  ];
 
   const LangToggle = () => (
     <div className="inline-flex items-center rounded-full border border-border/60 bg-white/70 backdrop-blur p-0.5 text-xs">
