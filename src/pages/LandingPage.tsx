@@ -17,7 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
-import teacherPortrait from "@/assets/teacher-portrait.jpg";
+import teacherPortrait from "@/assets/juliana-profile.png";
 import engageLogo from "@/assets/engage-logo.jpeg";
 
 const WHATSAPP_LINK = "https://wa.me/5500000000000";
