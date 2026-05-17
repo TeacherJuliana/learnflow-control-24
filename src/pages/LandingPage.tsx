@@ -594,19 +594,15 @@ const LandingPage = () => {
           </Button>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-          {INSTAGRAM_POSTS.map((p, i) => (
-            <a key={i} href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"
-              className="group relative aspect-square rounded-2xl overflow-hidden block">
-              <div className={`absolute inset-0 bg-gradient-to-br ${p.gradient} transition-transform duration-500 group-hover:scale-110`} />
-              <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/40 transition-colors flex items-center justify-center p-4">
-                <div className="text-center text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Instagram className="w-6 h-6 mx-auto mb-2" />
-                  <p className="text-xs font-medium">{p.caption}</p>
-                </div>
-              </div>
-            </a>
-          ))}
+        <div className="rounded-3xl border border-border/60 overflow-hidden bg-cream/30">
+          <iframe
+            src="https://www.instagram.com/teacherjulianaandrade/embed"
+            className="w-full h-[600px] md:h-[700px]"
+            frameBorder="0"
+            scrolling="no"
+            allowTransparency
+            title="Instagram @teacherjulianaandrade"
+          />
         </div>
       </section>
 
