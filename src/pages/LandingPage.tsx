@@ -21,8 +21,8 @@ import teacherPortrait from "@/assets/juliana-profile.png";
 import engageLogo from "@/assets/engage-logo.jpeg";
 
 const WHATSAPP_LINK = "https://wa.me/5500000000000";
-const INSTAGRAM_HANDLE = "@engage.english";
-const INSTAGRAM_URL = "https://instagram.com/";
+const INSTAGRAM_HANDLE = "@teacherjulianaandrade";
+const INSTAGRAM_URL = "https://instagram.com/teacherjulianaandrade";
 
 /* ---------------- Interest form (Dialog) ---------------- */
 type InterestDialogProps = {
@@ -408,14 +408,6 @@ const LandingPage = () => {
     ],
   });
 
-  const INSTAGRAM_POSTS = [
-    { gradient: "from-primary-soft via-blush to-cream", caption: t({ pt: "5 frases para sua entrevista", en: "5 phrases for your next interview" }) },
-    { gradient: "from-cream to-primary-soft", caption: t({ pt: "Palavra da semana ✨", en: "Word of the week ✨" }) },
-    { gradient: "from-blush to-sand", caption: t({ pt: "Bastidores", en: "Behind the scenes" }) },
-    { gradient: "from-sand to-cream", caption: t({ pt: "Aluno em destaque 💛", en: "Student spotlight 💛" }) },
-    { gradient: "from-primary-soft to-sand", caption: t({ pt: "Dica de pronúncia", en: "Pronunciation tip" }) },
-    { gradient: "from-cream via-blush to-primary-soft", caption: t({ pt: "Conversa real em inglês", en: "Real talk in English" }) },
-  ];
 
   const LangToggle = () => (
     <div className="inline-flex items-center rounded-full border border-border/60 bg-white/70 backdrop-blur p-0.5 text-xs">
@@ -594,19 +586,15 @@ const LandingPage = () => {
           </Button>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-          {INSTAGRAM_POSTS.map((p, i) => (
-            <a key={i} href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"
-              className="group relative aspect-square rounded-2xl overflow-hidden block">
-              <div className={`absolute inset-0 bg-gradient-to-br ${p.gradient} transition-transform duration-500 group-hover:scale-110`} />
-              <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/40 transition-colors flex items-center justify-center p-4">
-                <div className="text-center text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Instagram className="w-6 h-6 mx-auto mb-2" />
-                  <p className="text-xs font-medium">{p.caption}</p>
-                </div>
-              </div>
-            </a>
-          ))}
+        <div className="rounded-3xl border border-border/60 overflow-hidden bg-cream/30">
+          <iframe
+            src="https://www.instagram.com/teacherjulianaandrade/embed"
+            className="w-full h-[600px] md:h-[700px]"
+            frameBorder="0"
+            scrolling="no"
+            allowTransparency
+            title="Instagram @teacherjulianaandrade"
+          />
         </div>
       </section>
 
