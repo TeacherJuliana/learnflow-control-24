@@ -21,8 +21,8 @@ import teacherPortrait from "@/assets/juliana-profile.png";
 import engageLogo from "@/assets/engage-logo.jpeg";
 
 const WHATSAPP_LINK = "https://wa.me/5500000000000";
-const INSTAGRAM_HANDLE = "@engage.english";
-const INSTAGRAM_URL = "https://instagram.com/";
+const INSTAGRAM_HANDLE = "@teacherjulianaandrade";
+const INSTAGRAM_URL = "https://instagram.com/teacherjulianaandrade";
 
 /* ---------------- Interest form (Dialog) ---------------- */
 type InterestDialogProps = {
